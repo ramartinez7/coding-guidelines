@@ -1,0 +1,7 @@
+- Separate multi-line statements from preceding and following statements with empty lines.
+- Don't prefix fields with _.
+- Use "this." when referencing fields.
+- Place static members above instance members in the type.
+- Enable static code analyzers with strict rules.
+- Use braces even for single line blocks.
+- Don't include explicit "internal" or "private" access modifiers whey they would be redundant.
