@@ -106,6 +106,14 @@ Builder patterns that allow `.Build()` before required fields are set—use inte
 
 Business rules buried in scattered LINQ lambdas—encapsulate rules as named, composable Specification types.
 
+### [Idempotency Keys (Distributed Consistency)](./idempotency-keys.md)
+
+Network retries cause duplicate operations—require an `IdempotencyKey` type to make operations safely repeatable.
+
+### [Domain Events (Decoupling Side Effects)](./domain-events.md)
+
+"God methods" with core action plus 10 side effects—return domain events as types to decouple and announce changes.
+
 ## Exercises
 
 ### [Subscriptions Mini-Domain](./exercise-subscriptions.md)
