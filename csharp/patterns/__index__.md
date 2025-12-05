@@ -114,6 +114,16 @@ Network retries cause duplicate operations—require an `IdempotencyKey` type to
 
 "God methods" with core action plus 10 side effects—return domain events as types to decouple and announce changes.
 
+### [Polymorphic Feature Flags (Strategy over If)](./polymorphic-feature-flags.md)
+
+Boolean feature flags checked inside business logic—use type registration to swap implementations at startup.
+
+## Performance Patterns
+
+### [Memory Safety (Span and Ref Structs)](./memory-safety-span.md)
+
+String manipulation causes GC pressure—use `Span<T>` and `ref struct` for zero-allocation, memory-safe code.
+
 ## Exercises
 
 ### [Subscriptions Mini-Domain](./exercise-subscriptions.md)
