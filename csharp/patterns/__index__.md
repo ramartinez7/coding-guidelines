@@ -82,6 +82,18 @@ Standard types with dangerous structure (empty collections)—wrap to enforce co
 
 Checking authorization separately from actions—use capability tokens to make authorization proof part of the type system.
 
+### [Input Sanitization (Trusted Types)](./input-sanitization.md)
+
+Validating and sanitizing input at multiple points in the codebase—use trusted types to validate once at the boundary.
+
+### [Secret Types (Preventing Accidental Exposure)](./secret-types.md)
+
+Secrets logged or serialized accidentally—use dedicated types that prevent rendering in logs, exceptions, and JSON.
+
+### [Authentication Context (Type-Safe Identity)](./authentication-context.md)
+
+Passing user IDs as primitives and checking `HttpContext.User` in business logic—use an authenticated context type that proves identity at compile time.
+
 ### [Boundary Enforcement (DTO vs. Domain)](./dto-domain-boundary.md)
 
 Using the same class for API serialization and domain logic—separate DTOs from domain models with explicit mappers.
@@ -118,11 +130,65 @@ Network retries cause duplicate operations—require an `IdempotencyKey` type to
 
 Boolean feature flags checked inside business logic—use type registration to swap implementations at startup.
 
+## API Style Patterns
+
+### [Versioned Endpoints (Type-Safe API Versioning)](./versioned-endpoints.md)
+
+API versioning with string paths and runtime route matching—use types to represent versions at compile time.
+
+### [Content Negotiation (Type-Driven Response Formatting)](./content-negotiation.md)
+
+Checking `Accept` headers with strings and manually serializing responses—use types to represent content types and let the framework handle serialization.
+
+### [Pagination Cursors (Opaque Token Types)](./pagination-cursors.md)
+
+Using page numbers or offsets for pagination exposes implementation details and breaks when data changes—use opaque cursor types for stable, efficient pagination.
+
+## Type-Driven Development Patterns
+
+### [Phantom Types (Compile-Time State Tracking)](./phantom-types.md)
+
+Using runtime checks or comments to track object state—use phantom type parameters to encode state in the type system.
+
+### [Units of Measure (Dimensional Analysis in Types)](./units-of-measure.md)
+
+Mixing incompatible units (meters + feet, seconds + milliseconds) causes calculation errors—encode units in the type system to prevent dimensional mistakes.
+
+### [Branded Primitives (Nominal Typing Over Structural)](./branded-primitives.md)
+
+Type aliases (`using`) provide no type safety—create branded types to distinguish structurally identical but semantically different values.
+
+## Domain-Driven Design Patterns
+
+### [Aggregate Roots (Enforcing Invariants Through Boundaries)](./aggregate-roots.md)
+
+Entities with direct public setters allow invariants to be broken—use aggregate roots to enforce consistency boundaries.
+
+### [Repository Pattern (Domain-Centric Data Access)](./repository-pattern.md)
+
+Domain logic coupled to database—use repositories to abstract persistence and keep domain pure.
+
+### [Ubiquitous Language (Translating Business Terms to Types)](./ubiquitous-language.md)
+
+Technical jargon in code disconnected from business vocabulary—use types that mirror the language domain experts use.
+
 ## Performance Patterns
 
 ### [Memory Safety (Span and Ref Structs)](./memory-safety-span.md)
 
 String manipulation causes GC pressure—use `Span<T>` and `ref struct` for zero-allocation, memory-safe code.
+
+### [Struct Layout (Memory and Cache Optimization)](./struct-layout.md)
+
+Structs with poor field ordering waste memory and cause cache misses—use explicit layout and field ordering for optimal performance.
+
+### [Allocation Budget (Zero-Allocation Patterns)](./allocation-budget.md)
+
+High-throughput code allocates excessively, triggering frequent GC pauses—use pooling, stack allocation, and budget tracking to eliminate allocations in hot paths.
+
+### [Lazy Initialization (Type-Safe Deferred Computation)](./lazy-initialization.md)
+
+Expensive initialization done eagerly when it might not be needed—use lazy initialization with type safety to defer computation until actually required.
 
 ## Exercises
 
