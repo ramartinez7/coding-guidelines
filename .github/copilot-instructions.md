@@ -10,6 +10,7 @@ This is a **documentation repository** that teaches advanced C# patterns at the 
 - Algebraic Data Types (ADTs)
 - Functional Programming (FP)
 - Correctness by Construction
+- Semantic Compression
 - Security by Construction
 - Zero-Trust Intra-Code
 
