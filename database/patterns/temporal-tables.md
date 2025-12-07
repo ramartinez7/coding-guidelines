@@ -2,6 +2,8 @@
 
 > Use SQL Server's system-versioned temporal tables to automatically track all changes—query data as it existed at any point in time.
 
+**Requirements**: SQL Server 2016+, Azure SQL Database, or Azure SQL Managed Instance.
+
 ## Problem
 
 Manually tracking data history requires custom audit tables, triggers, and complex queries. This is error-prone, adds development overhead, and makes historical queries difficult.

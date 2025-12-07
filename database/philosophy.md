@@ -45,6 +45,7 @@ Use appropriate data types that match the domain. Don't use `NVARCHAR(MAX)` for 
 - [Schema Constraints](./patterns/schema-constraints.md)
 - [Explicit Nullability](./patterns/explicit-nullability.md)
 - [Domain-Appropriate Types](./patterns/domain-appropriate-types.md)
+- [Parameterized Queries](./patterns/parameterized-queries.md)
 
 ---
 
@@ -99,6 +100,7 @@ GROUP BY OrderId;
 - [Soft Deletes](./patterns/soft-deletes.md)
 - [Temporal Tables](./patterns/temporal-tables.md)
 - [Event Sourcing](./patterns/event-sourcing.md)
+- [Audit Columns](./patterns/audit-columns.md)
 
 ---
 
@@ -144,8 +146,8 @@ WITH (STATE = ON);
 ### Related Patterns
 
 - [Row-Level Security](./patterns/row-level-security.md)
-- [Always Encrypted](./patterns/always-encrypted.md)
 - [SQL Injection Prevention](./patterns/sql-injection-prevention.md)
+- [Parameterized Queries](./patterns/parameterized-queries.md)
 
 ---
 
@@ -183,9 +185,8 @@ Split large tables by date ranges or other logical boundaries for better query p
 ### Related Patterns
 
 - [Covering Indexes](./patterns/covering-indexes.md)
-- [Indexed Views](./patterns/indexed-views.md)
-- [Table Partitioning](./patterns/table-partitioning.md)
-- [Read Models](./patterns/read-models.md)
+- [Parameterized Queries](./patterns/parameterized-queries.md)
+- [Explicit Transactions](./patterns/explicit-transactions.md)
 
 ---
 
@@ -221,9 +222,9 @@ CREATE TABLE Orders (
 
 ### Related Patterns
 
-- [Named Constraints](./patterns/named-constraints.md)
+- [Schema Constraints](./patterns/schema-constraints.md)
 - [Explicit Transactions](./patterns/explicit-transactions.md)
-- [Schema Qualification](./patterns/schema-qualification.md)
+- [Parameterized Queries](./patterns/parameterized-queries.md)
 
 ---
 
@@ -303,8 +304,8 @@ CREATE TABLE Customers (
 ### Related Patterns
 
 - [Domain-Appropriate Types](./patterns/domain-appropriate-types.md)
-- [User-Defined Types](./patterns/user-defined-types.md)
-- [Check Constraints](./patterns/check-constraints.md)
+- [Schema Constraints](./patterns/schema-constraints.md)
+- [Explicit Nullability](./patterns/explicit-nullability.md)
 
 ---
 
@@ -339,8 +340,8 @@ Log correlation IDs with database operations to trace requests across system bou
 ### Related Patterns
 
 - [Audit Columns](./patterns/audit-columns.md)
-- [Query Store](./patterns/query-store.md)
-- [Extended Events](./patterns/extended-events.md)
+- [Temporal Tables](./patterns/temporal-tables.md)
+- [Event Sourcing](./patterns/event-sourcing.md)
 
 ---
 

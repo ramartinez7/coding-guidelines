@@ -21,7 +21,8 @@ Conventions for writing clear, maintainable T-SQL code in SQL Server.
 
 ### Tables
 
-- **Singular nouns**: `Order`, not `Orders`
+- **Singular nouns** (team preference): `Order`, not `Orders`
+  - Note: Both singular and plural table names are widely used in industry. Choose one convention and apply it consistently across your project.
 - **PascalCase**: `CustomerOrder`, `OrderLineItem`
 - **No prefixes**: Avoid `tbl_`, `t_`, or Hungarian notation
 
