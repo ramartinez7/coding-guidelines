@@ -1,0 +1,10 @@
+- Use `readonly` modifiers for properties that shouldn't change after initialization.
+- Prefer `const` over `let`; avoid `var` entirely.
+- Use interfaces for object shapes, type aliases for unions and complex types.
+- Enable strict mode in `tsconfig.json` (`"strict": true`).
+- Use explicit return types on public functions.
+- Prefer named exports over default exports for better refactoring support.
+- Use template literals for string interpolation instead of concatenation.
+- Use optional chaining (`?.`) and nullish coalescing (`??`) where appropriate.
+- Organize imports: third-party packages, then local modules, separated by empty lines.
+- Use trailing commas in multi-line arrays and objects for cleaner diffs.
