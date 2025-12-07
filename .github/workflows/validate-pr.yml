@@ -1,0 +1,159 @@
+name: Validate PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'csharp/**/*.md'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+
+jobs:
+  validate:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check for multiple pattern files in single PR
+        id: check_scope
+        run: |
+          # Get list of changed markdown files in patterns directory
+          CHANGED_PATTERNS=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^csharp/patterns/.*\.md$' | grep -v '__index__.md' || true)
+          PATTERN_COUNT=$(echo "$CHANGED_PATTERNS" | grep -c . || echo 0)
+          
+          echo "Changed pattern files:"
+          echo "$CHANGED_PATTERNS"
+          echo "Count: $PATTERN_COUNT"
+          
+          if [ "$PATTERN_COUNT" -gt 1 ]; then
+            echo "::warning::This PR modifies $PATTERN_COUNT pattern files. Consider splitting into separate PRs (one pattern per PR) to reduce merge conflicts."
+          fi
+      
+      - name: Check for broken internal links
+        run: |
+          # Check for broken relative links to other patterns
+          echo "Checking for broken internal links..."
+          
+          BROKEN_LINKS=0
+          for file in $(find csharp/patterns -name "*.md"); do
+            # Extract markdown links [text](path.md)
+            grep -oP '\[.*?\]\(\./[^\)]+\.md\)' "$file" 2>/dev/null | while read -r link; do
+              # Extract the path
+              path=$(echo "$link" | sed -n 's/.*(\(\.\/[^)]*\)).*/\1/p')
+              # Resolve relative to the file's directory
+              dir=$(dirname "$file")
+              full_path="$dir/$path"
+              
+              if [ ! -f "$full_path" ]; then
+                echo "::error file=$file::Broken link: $link (target not found: $full_path)"
+                BROKEN_LINKS=$((BROKEN_LINKS + 1))
+              fi
+            done
+          done
+          
+          if [ $BROKEN_LINKS -gt 0 ]; then
+            echo "::error::Found $BROKEN_LINKS broken internal link(s)"
+            exit 1
+          fi
+          
+          echo "✓ No broken links found"
+      
+      - name: Check index file sync
+        run: |
+          # Check if new pattern files exist but aren't in __index__.md
+          echo "Checking if all pattern files are indexed..."
+          
+          MISSING_IN_INDEX=0
+          for file in csharp/patterns/*.md; do
+            filename=$(basename "$file")
+            
+            # Skip __index__.md itself
+            if [ "$filename" = "__index__.md" ]; then
+              continue
+            fi
+            
+            # Check if this file is linked in __index__.md
+            if ! grep -q "($filename)" csharp/patterns/__index__.md; then
+              echo "::warning file=$file::Pattern file exists but is not listed in __index__.md. Remember to add it!"
+              MISSING_IN_INDEX=$((MISSING_IN_INDEX + 1))
+            fi
+          done
+          
+          if [ $MISSING_IN_INDEX -gt 0 ]; then
+            echo "::notice::Found $MISSING_IN_INDEX pattern(s) not yet indexed. This is OK for draft PRs, but remember to update __index__.md before merging!"
+          else
+            echo "✓ All patterns are indexed"
+          fi
+      
+      - name: Check file naming conventions
+        run: |
+          # Ensure pattern files use kebab-case
+          echo "Checking file naming conventions..."
+          
+          BAD_NAMES=0
+          for file in csharp/patterns/*.md; do
+            filename=$(basename "$file")
+            
+            # Skip __index__.md
+            if [ "$filename" = "__index__.md" ]; then
+              continue
+            fi
+            
+            # Check if filename contains uppercase, spaces, or underscores
+            if echo "$filename" | grep -qE '[A-Z_ ]'; then
+              echo "::error file=$file::File name should use kebab-case (lowercase with hyphens): $filename"
+              BAD_NAMES=$((BAD_NAMES + 1))
+            fi
+          done
+          
+          if [ $BAD_NAMES -gt 0 ]; then
+            echo "::error::Found $BAD_NAMES file(s) with incorrect naming"
+            exit 1
+          fi
+          
+          echo "✓ All files follow naming conventions"
+      
+      - name: Validate markdown structure
+        run: |
+          # Basic validation that pattern files have required sections
+          echo "Validating markdown structure..."
+          
+          VALIDATION_ERRORS=0
+          for file in csharp/patterns/*.md; do
+            filename=$(basename "$file")
+            
+            # Skip __index__.md
+            if [ "$filename" = "__index__.md" ]; then
+              continue
+            fi
+            
+            # Check for basic required sections (not strict, just helpful warnings)
+            if ! grep -q "^## Problem" "$file" && ! grep -q "^# " "$file"; then
+              echo "::warning file=$file::Pattern might be missing a '## Problem' section"
+            fi
+            
+            if ! grep -q "^## Solution" "$file" && ! grep -q "^# " "$file"; then
+              echo "::warning file=$file::Pattern might be missing a '## Solution' section"
+            fi
+          done
+          
+          echo "✓ Structure validation complete"
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✓ Documentation validation checks completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Tips for Avoiding Conflicts:" >> $GITHUB_STEP_SUMMARY
+          echo "- Keep PRs focused (one pattern per PR)" >> $GITHUB_STEP_SUMMARY
+          echo "- Update __index__.md last, after rebasing" >> $GITHUB_STEP_SUMMARY
+          echo "- Check open PRs before starting work" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See [CONTRIBUTING.md](../CONTRIBUTING.md) for full guidelines" >> $GITHUB_STEP_SUMMARY

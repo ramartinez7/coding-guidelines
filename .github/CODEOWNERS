@@ -1,0 +1,36 @@
+# CODEOWNERS - Define who reviews what
+# This file helps prevent conflicts by assigning reviewers based on the files changed.
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: All contributors need approval from the repository maintainer
+* @ramartinez7
+
+# High-conflict files: Require maintainer review
+/csharp/patterns/__index__.md @ramartinez7
+/csharp/philosophy.md @ramartinez7
+/csharp/style.md @ramartinez7
+
+# Documentation and meta-files
+/README.md @ramartinez7
+/CONTRIBUTING.md @ramartinez7
+/.github/ @ramartinez7
+
+# Pattern files: Maintainer reviews, but can be delegated
+# Individual pattern files have lower conflict risk
+/csharp/patterns/*.md @ramartinez7
+
+# Example configuration for team-based ownership (uncomment and customize as needed):
+# Security patterns - assign to security team
+# /csharp/patterns/capability-security.md @your-org/security-team
+# /csharp/patterns/authentication-context.md @your-org/security-team
+# /csharp/patterns/secret-types.md @your-org/security-team
+
+# Performance patterns - assign to performance team
+# /csharp/patterns/memory-safety-span.md @your-org/performance-team
+# /csharp/patterns/allocation-budget.md @your-org/performance-team
+# /csharp/patterns/struct-layout.md @your-org/performance-team
+
+# DDD patterns - assign to domain experts
+# /csharp/patterns/aggregate-roots.md @your-org/domain-team
+# /csharp/patterns/repository-pattern.md @your-org/domain-team
+# /csharp/patterns/ubiquitous-language.md @your-org/domain-team
