@@ -357,4 +357,4 @@ public class TunableCache
 - [Eventual Consistency](./eventual-consistency.md) — accepting temporary inconsistency
 - [Two-Phase Commit](./two-phase-commit.md) — strong consistency across nodes
 - [Saga Pattern](./saga-pattern.md) — eventual consistency for long-running transactions
-- [Quorum Reads and Writes](./quorum-reads-writes.md) — tunable consistency
+- [CQRS](./cqrs.md) — separating read and write concerns for tunable consistency

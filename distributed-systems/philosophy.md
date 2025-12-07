@@ -55,7 +55,6 @@ In a distributed system, network partitions *will* occur. When a partition happe
 
 - [CAP Theorem](./patterns/cap-theorem.md) — detailed explanation with trade-offs
 - [Eventual Consistency](./patterns/eventual-consistency.md) — accepting temporary inconsistency
-- [Quorum Reads and Writes](./patterns/quorum-reads-writes.md) — tunable consistency
 
 ---
 
@@ -126,9 +125,8 @@ await ProcessRequest(request);
 
 ### Related Patterns
 
-- [Distributed Locks](./patterns/distributed-locks.md)
-- [Leader Election](./patterns/leader-election.md)
-- [Consensus Algorithms](./patterns/consensus-algorithms.md)
+- [Two-Phase Commit](./patterns/two-phase-commit.md) — coordination with strong consistency
+- [Saga Pattern](./patterns/saga-pattern.md) — coordination with eventual consistency
 
 ---
 
@@ -165,7 +163,6 @@ Synchronous calls in distributed systems create coupling, cascading failures, an
 ### Related Patterns
 
 - [Event-Driven Architecture](./patterns/event-driven-architecture.md)
-- [Message Queues](./patterns/message-queues.md)
 - [Saga Pattern](./patterns/saga-pattern.md)
 
 ---
@@ -205,8 +202,7 @@ return result.Match(
 ### Related Patterns
 
 - [Circuit Breaker](./patterns/circuit-breaker.md)
-- [Bulkhead Pattern](./patterns/bulkhead-pattern.md)
-- [Retry with Exponential Backoff](./patterns/retry-exponential-backoff.md)
+- [Saga Pattern](./patterns/saga-pattern.md) — handling failures in distributed transactions
 
 ---
 
@@ -236,9 +232,8 @@ public void ChargeCustomer(IdempotencyKey key, CustomerId id, decimal amount)
 
 ### Related Patterns
 
-- [Idempotency Keys](./patterns/idempotency-keys.md)
-- [At-Least-Once Delivery](./patterns/at-least-once-delivery.md)
-- [Exactly-Once Semantics](./patterns/exactly-once-semantics.md)
+- [Event-Driven Architecture](./patterns/event-driven-architecture.md) — idempotent event processing
+- [Saga Pattern](./patterns/saga-pattern.md) — idempotent compensation actions
 
 ---
 
@@ -276,9 +271,8 @@ public async Task ProcessOrder(
 
 ### Related Patterns
 
-- [Correlation IDs](./patterns/correlation-ids.md)
-- [Distributed Tracing](./patterns/distributed-tracing.md)
-- [Health Checks](./patterns/health-checks.md)
+- [Event-Driven Architecture](./patterns/event-driven-architecture.md) — observing event flows
+- [Circuit Breaker](./patterns/circuit-breaker.md) — monitoring service health
 
 ---
 
@@ -301,9 +295,8 @@ if (event1.Clock < event2.Clock)
 
 ### Related Patterns
 
-- [Logical Clocks](./patterns/logical-clocks.md)
-- [Vector Clocks](./patterns/vector-clocks.md)
-- [Hybrid Logical Clocks](./patterns/hybrid-logical-clocks.md)
+- [Event Sourcing](./patterns/event-sourcing.md) — events capture causal ordering
+- [Eventual Consistency](./patterns/eventual-consistency.md) — handling concurrent updates
 
 ---
 
@@ -332,9 +325,8 @@ Data has mass. Moving it is expensive. Compute should move to data, not vice ver
 
 ### Related Patterns
 
-- [Data Locality](./patterns/data-locality.md)
-- [Materialized Views](./patterns/materialized-views.md)
-- [Edge Computing](./patterns/edge-computing.md)
+- [CQRS](./patterns/cqrs.md) — optimizing read models for locality
+- [Event Sourcing](./patterns/event-sourcing.md) — replaying events locally
 
 ---
 

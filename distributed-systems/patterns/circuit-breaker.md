@@ -463,7 +463,6 @@ public class CircuitStateChangedEventArgs : EventArgs
 
 ## See Also
 
-- [Bulkhead Pattern](./bulkhead.md) — isolate resources
-- [Retry with Exponential Backoff](./retry-exponential-backoff.md) — retry strategy
-- [Timeout Pattern](./timeout-pattern.md) — explicit time limits
-- [Health Checks](./health-checks.md) — service health monitoring
+- [Saga Pattern](./saga-pattern.md) — handling failures in distributed transactions
+- [Event-Driven Architecture](./event-driven-architecture.md) — decoupling services to improve resilience
+- [CAP Theorem](./cap-theorem.md) — understanding availability trade-offs

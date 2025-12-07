@@ -12,9 +12,9 @@ Consistency, Availability, Partition Tolerance—understand the fundamental trad
 
 Accept temporary inconsistency across nodes for better availability and performance—eventually all nodes converge.
 
-### [Time and Ordering](./time-and-ordering.md)
+<!-- ### [Time and Ordering](./time-and-ordering.md)
 
-Wall-clock time is unreliable in distributed systems—use logical clocks and causal ordering for correctness.
+Wall-clock time is unreliable in distributed systems—use logical clocks and causal ordering for correctness. -->
 
 ## Data Consistency Patterns
 
@@ -40,7 +40,7 @@ Separate read and write models to optimize each independently—often combined w
 
 Prevent cascading failures by failing fast when a downstream service is unhealthy.
 
-### [Bulkhead Pattern](./bulkhead.md)
+<!-- ### [Bulkhead Pattern](./bulkhead.md)
 
 Isolate resources to prevent failure in one component from exhausting shared resources.
 
@@ -50,7 +50,7 @@ Retry failed operations with increasing delays to avoid overwhelming recovering 
 
 ### [Timeout Pattern](./timeout-pattern.md)
 
-Set explicit time limits for operations to prevent indefinite waiting and resource exhaustion.
+Set explicit time limits for operations to prevent indefinite waiting and resource exhaustion. -->
 
 ## Communication Patterns
 
@@ -58,17 +58,17 @@ Set explicit time limits for operations to prevent indefinite waiting and resour
 
 Services communicate through events published to a message bus—loose coupling and asynchrony.
 
-### [Message Queues](./message-queues.md)
+<!-- ### [Message Queues](./message-queues.md)
 
 Asynchronous communication through durable queues that buffer messages and enable retry.
 
 ### [Request-Response vs. Fire-and-Forget](./request-response-vs-fire-forget.md)
 
-Choose between synchronous request-response and asynchronous fire-and-forget based on requirements.
+Choose between synchronous request-response and asynchronous fire-and-forget based on requirements. -->
 
 ## Coordination Patterns
 
-### [Leader Election](./leader-election.md)
+<!-- ### [Leader Election](./leader-election.md)
 
 Select a single node to coordinate actions across a cluster—prevents split-brain scenarios.
 
@@ -78,11 +78,11 @@ Coordinate access to shared resources across multiple processes using consensus-
 
 ### [Consensus Algorithms](./consensus-algorithms.md)
 
-Achieve agreement among distributed nodes—Raft, Paxos, and their practical applications.
+Achieve agreement among distributed nodes—Raft, Paxos, and their practical applications. -->
 
 ## Data Patterns
 
-### [Database per Service](./database-per-service.md)
+<!-- ### [Database per Service](./database-per-service.md)
 
 Each microservice owns its database—eliminates shared database coupling but complicates queries.
 
@@ -96,15 +96,13 @@ Pre-compute and store query results to avoid expensive joins across service boun
 
 ### [Change Data Capture (CDC)](./change-data-capture.md)
 
-Capture database changes as events to propagate updates without polling or dual writes.
+Capture database changes as events to propagate updates without polling or dual writes. -->
 
 ## Observability Patterns
 
-### [Correlation IDs](./correlation-ids.md)
+<!-- Note: These patterns reference the C# patterns section where applicable -->
 
-Track requests across service boundaries with unique identifiers for debugging and tracing.
-
-### [Distributed Tracing](./distributed-tracing.md)
+<!-- ### [Distributed Tracing](./distributed-tracing.md)
 
 Trace request flow through multiple services to identify bottlenecks and failures—OpenTelemetry, Zipkin, Jaeger.
 
@@ -114,11 +112,11 @@ Expose endpoints that report service health—enables load balancers and orchest
 
 ### [Centralized Logging](./centralized-logging.md)
 
-Aggregate logs from all services into a single system for cross-service analysis and debugging.
+Aggregate logs from all services into a single system for cross-service analysis and debugging. -->
 
 ## Scalability Patterns
 
-### [Sharding](./sharding.md)
+<!-- ### [Sharding](./sharding.md)
 
 Partition data across multiple databases to distribute load—horizontal scaling for writes.
 
@@ -126,17 +124,13 @@ Partition data across multiple databases to distribute load—horizontal scaling
 
 Separate read traffic from write traffic using database replicas—scales read-heavy workloads.
 
-### [CQRS with Read Models](./cqrs-read-models.md)
-
-Optimize read models independently of write models—denormalize for query performance.
-
 ### [Load Balancing](./load-balancing.md)
 
-Distribute requests across multiple instances—round-robin, least connections, consistent hashing.
+Distribute requests across multiple instances—round-robin, least connections, consistent hashing. -->
 
 ## Deployment Patterns
 
-### [Blue-Green Deployment](./blue-green-deployment.md)
+<!-- ### [Blue-Green Deployment](./blue-green-deployment.md)
 
 Run two identical production environments and switch traffic between them for zero-downtime deployments.
 
@@ -146,11 +140,11 @@ Gradually roll out changes to a subset of users before full deployment—detect 
 
 ### [Feature Flags](./feature-flags.md)
 
-Toggle features on/off without deploying code—enables trunk-based development and gradual rollouts.
+Toggle features on/off without deploying code—enables trunk-based development and gradual rollouts. -->
 
 ## Security Patterns
 
-### [API Gateway](./api-gateway.md)
+<!-- ### [API Gateway](./api-gateway.md)
 
 Single entry point for all client requests—handles authentication, rate limiting, and routing.
 
@@ -160,11 +154,11 @@ Infrastructure layer for service-to-service communication—observability, secur
 
 ### [Zero Trust Architecture](./zero-trust-architecture.md)
 
-Never trust, always verify—authenticate and authorize every request regardless of network location.
+Never trust, always verify—authenticate and authorize every request regardless of network location. -->
 
 ## Testing Patterns
 
-### [Contract Testing](./contract-testing.md)
+<!-- ### [Contract Testing](./contract-testing.md)
 
 Verify service APIs match consumer expectations—prevents integration failures.
 
@@ -174,14 +168,14 @@ Deliberately inject failures to test system resilience—Netflix's Chaos Monkey 
 
 ### [Synthetic Monitoring](./synthetic-monitoring.md)
 
-Continuously test production systems with automated requests—detect issues before users do.
+Continuously test production systems with automated requests—detect issues before users do. -->
 
 ## Legacy Integration Patterns
 
-### [Anti-Corruption Layer](./anti-corruption-layer.md)
+<!-- ### [Anti-Corruption Layer](./anti-corruption-layer.md)
 
 Translate between legacy systems and modern services without polluting domain models.
 
 ### [Strangler Fig Pattern](./strangler-fig-pattern.md)
 
-Gradually replace legacy systems by intercepting and migrating functionality piece by piece.
+Gradually replace legacy systems by intercepting and migrating functionality piece by piece. -->
