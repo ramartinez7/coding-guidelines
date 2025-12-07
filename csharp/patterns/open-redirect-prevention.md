@@ -506,7 +506,7 @@ public sealed record SignedRedirectToken
             ExpiresAt = DateTime.UtcNow.AddMinutes(15)
         };
         
-        var json = JsonSerializer.Serialize(payload);
+        var json = System.Text.Json.JsonSerializer.Serialize(payload);
         var token = protector.Protect(json);
         
         return new SignedRedirectToken(token, payload.ExpiresAt);
@@ -522,7 +522,7 @@ public sealed record SignedRedirectToken
             var protector = dataProtection.CreateProtector("RedirectTokens");
             var json = protector.Unprotect(token);
             
-            var payload = JsonSerializer.Deserialize<RedirectTokenPayload>(json);
+            var payload = System.Text.Json.JsonSerializer.Deserialize<RedirectTokenPayload>(json);
             
             if (payload == null)
                 return Result<RedirectUrl, string>.Failure("Invalid token");

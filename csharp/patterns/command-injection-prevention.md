@@ -373,10 +373,11 @@ public class ImageProcessingService
     {
         _executor = executor;
         
-        // Find ImageMagick convert executable at startup
-        var convertPath = SafeCommand.FindExecutable("convert");
-        _convertExecutable = convertPath 
-            ?? throw new InvalidOperationException("ImageMagick convert not found");
+        // Use FromExecutable to find convert executable at startup
+        var commandResult = SafeCommand.FromExecutable("convert");
+        _convertExecutable = commandResult.IsSuccess
+            ? commandResult.Value!.ExecutablePath
+            : throw new InvalidOperationException("ImageMagick convert not found");
     }
     
     public Result<Unit, string> ConvertImage(SafeFilePath inputFile, SafeFilePath outputFile)
