@@ -186,6 +186,36 @@ Setting security headers with string literals—use typed security headers to en
 
 Using string-based CORS policies—use typed origin validation to prevent unauthorized cross-origin access at compile time.
 
+## Application Security Patterns
+
+### [SQL Injection Prevention (Type-Safe Queries)](./sql-injection-prevention.md)
+
+Building SQL with string concatenation or interpolation—use parameterized queries and typed SQL builders to make injection attacks unrepresentable.
+
+### [Path Traversal Prevention (Safe File Paths)](./path-traversal-prevention.md)
+
+Using unsanitized user input in file paths—use validated path types to prevent directory traversal attacks.
+
+### [Command Injection Prevention (Safe Process Execution)](./command-injection-prevention.md)
+
+Executing shell commands with untrusted input—use validated command types to prevent command injection attacks.
+
+### [XXE Prevention (Safe XML Parsing)](./xxe-prevention.md)
+
+Parsing XML with default settings enables XML External Entity (XXE) attacks—use secure XML parsing configuration to prevent entity expansion and external resource access.
+
+### [Deserialization Prevention (Safe Object Deserialization)](./deserialization-prevention.md)
+
+Deserializing untrusted data with `BinaryFormatter` or unrestricted type resolution—use safe serializers and type allowlists to prevent remote code execution.
+
+### [Open Redirect Prevention (Safe URL Redirects)](./open-redirect-prevention.md)
+
+Redirecting to URLs from untrusted input—use validated URL types to prevent open redirect attacks that enable phishing.
+
+### [Cryptographic Best Practices (Type-Safe Cryptography)](./cryptographic-practices.md)
+
+Using weak algorithms, hardcoded keys, or manual crypto implementation—use modern cryptographic types and key management to prevent security vulnerabilities.
+
 ## Type-Driven Development Patterns
 
 ### [Phantom Types (Compile-Time State Tracking)](./phantom-types.md)
