@@ -1,0 +1,21 @@
+- Follow the official [Angular Style Guide](https://angular.io/guide/styleguide)
+- Use TypeScript strict mode (`"strict": true` in tsconfig.json)
+- Enable Angular strict template checking
+- Prefer `readonly` for properties that don't change after initialization
+- Use `const` by default, `let` only when reassignment is needed
+- Avoid `var` entirely
+- Use meaningful, descriptive names for components, services, and variables
+- Component selectors should use kebab-case with a project-specific prefix (e.g., `app-user-list`)
+- Use `OnPush` change detection strategy by default
+- Prefer reactive patterns with the `async` pipe over manual subscriptions
+- Use standalone components (Angular 14+) for new components when possible
+- Place one component per file
+- Keep templates small; extract complex templates to separate components
+- Use TypeScript path aliases for cleaner imports (e.g., `@app/shared` instead of `../../../shared`)
+- Implement `OnDestroy` and unsubscribe from observables when using manual subscriptions
+- Use `trackBy` functions with `*ngFor` directives
+- Avoid logic in templates; move complex expressions to component methods or computed properties
+- Use Angular's built-in validators; create custom validators for reusable validation logic
+- Prefer immutable data operations (spread operator, array methods that return new arrays)
+- Use proper TypeScript access modifiers (`public`, `private`, `protected`)
+- Avoid `any` type; use `unknown` if the type is truly unknown and narrow it with type guards
