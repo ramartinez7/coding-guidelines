@@ -197,6 +197,9 @@ IEventHandler<EventArgs> generalHandler = new LoggingEventHandler();
 IEventHandler<UserCreatedEventArgs> specificHandler = generalHandler;  // ✅ Valid
 
 specificHandler.Handle(new UserCreatedEventArgs { UserId = "123" });
+
+// Helper to demonstrate the pattern
+IEventHandler<Animal> GetAnimalEventHandler() => new LoggingEventHandler();
 ```
 
 ### Factories (Covariance)

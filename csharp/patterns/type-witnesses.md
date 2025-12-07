@@ -6,6 +6,8 @@
 
 Many operations require preconditions (non-null, validated, authorized). Traditional approaches check these conditions repeatedly at runtime, even when previous checks already proved them. Type witnesses are tokens that prove a condition holds, eliminating redundant checks.
 
+> **Note:** These examples use `Result<T, E>` and `Option<T>` types for error handling. These are commonly implemented patterns—see [Honest Functions](./honest-functions.md) for Result type implementation, or use libraries like [LanguageExt](https://github.com/louthy/language-ext) or [ErrorOr](https://github.com/amantinband/error-or).
+
 ## Example
 
 ### ❌ Before
@@ -71,10 +73,13 @@ public class DocumentService
 /// Witness that user is authenticated.
 /// Cannot be forged—only AuthenticationService can create it.
 /// </summary>
-public readonly record struct AuthenticatedUser(UserId UserId, string Name)
+public readonly struct AuthenticatedUser
 {
-    // Private constructor: can't be created directly
-    internal AuthenticatedUser(UserId userId, string name) : this()
+    public UserId UserId { get; }
+    public string Name { get; }
+    
+    // Internal constructor: can only be created by trusted services
+    internal AuthenticatedUser(UserId userId, string name)
     {
         UserId = userId;
         Name = name;
@@ -85,16 +90,17 @@ public readonly record struct AuthenticatedUser(UserId UserId, string Name)
 /// Witness that document access was authorized for this user.
 /// Unforgeable token proving authorization was checked.
 /// </summary>
-public readonly record struct DocumentAccessGrant(
-    DocumentId DocumentId,
-    UserId UserId,
-    AccessLevel Level)
+public readonly struct DocumentAccessGrant
 {
-    // Private constructor: can only be created by authorization service
+    public DocumentId DocumentId { get; }
+    public UserId UserId { get; }
+    public AccessLevel Level { get; }
+    
+    // Internal constructor: can only be created by authorization service
     internal DocumentAccessGrant(
         DocumentId documentId,
         UserId userId,
-        AccessLevel level) : this()
+        AccessLevel level)
     {
         DocumentId = documentId;
         UserId = userId;
@@ -105,15 +111,16 @@ public readonly record struct DocumentAccessGrant(
 /// <summary>
 /// Witness that document has been validated.
 /// </summary>
-public readonly record struct ValidatedDocument(
-    DocumentId Id,
-    string Content,
-    DateTimeOffset ValidatedAt)
+public readonly struct ValidatedDocument
 {
+    public DocumentId Id { get; }
+    public string Content { get; }
+    public DateTimeOffset ValidatedAt { get; }
+    
     internal ValidatedDocument(
         DocumentId id,
         string content,
-        DateTimeOffset validatedAt) : this()
+        DateTimeOffset validatedAt)
     {
         Id = id;
         Content = content;
@@ -216,6 +223,8 @@ public class DocumentController
 {
     async Task<IActionResult> ProcessDocument(
         int documentId,
+        string username,
+        string password,
         [FromServices] AuthenticationService authService,
         [FromServices] AuthorizationService authzService,
         [FromServices] DocumentValidator validator,
@@ -224,7 +233,7 @@ public class DocumentController
         var docId = new DocumentId(documentId);
         
         // Step 1: Authenticate (get witness)
-        var authResult = await authService.Authenticate(GetUsername(), GetPassword());
+        var authResult = await authService.Authenticate(username, password);
         
         if (!authResult.IsSuccess)
             return Unauthorized();
@@ -389,9 +398,11 @@ public class ShippingService
 /// <summary>
 /// Witness that value is definitely not null.
 /// </summary>
-public readonly record struct NotNull<T>(T Value) where T : class
+public readonly struct NotNull<T> where T : class
 {
-    private NotNull(T value) : this()
+    public T Value { get; }
+    
+    private NotNull(T value)
     {
         Value = value;
     }

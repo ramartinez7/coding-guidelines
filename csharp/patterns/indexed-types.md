@@ -6,6 +6,8 @@
 
 Array and collection access using integer indices provides no guarantee that the index is valid. Runtime bounds checking catches errors late, often in production. Indexed types make index validity part of the type system.
 
+> **Note:** Examples use `Option<T>` for representing potentially missing values. See [Nullability vs. Optionality](./nullability-optionality.md) or use libraries like [LanguageExt](https://github.com/louthy/language-ext).
+
 ## Example
 
 ### ❌ Before

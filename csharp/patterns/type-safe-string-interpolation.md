@@ -130,7 +130,9 @@ public readonly record struct HtmlString(string Value) : ITrustedString
     /// </summary>
     public static HtmlString Encode(string unsafe)
     {
-        var encoded = System.Web.HttpUtility.HtmlEncode(unsafe);
+        // Use System.Net.WebUtility (available in all .NET versions)
+        // or System.Text.Encodings.Web.HtmlEncoder for .NET Core/5+
+        var encoded = System.Net.WebUtility.HtmlEncode(unsafe);
         return new HtmlString(encoded);
     }
     
@@ -307,7 +309,7 @@ public sealed class HtmlTemplate
     {
         // Encode all interpolated values
         var encodedValues = values.Select(v => 
-            System.Web.HttpUtility.HtmlEncode(v?.ToString() ?? "")
+            System.Net.WebUtility.HtmlEncode(v?.ToString() ?? "")
         ).ToArray();
         
         var result = string.Format(Template, encodedValues);
