@@ -178,6 +178,30 @@ Mixing incompatible units (meters + feet, seconds + milliseconds) causes calcula
 
 Type aliases (`using`) provide no type safety—create branded types to distinguish structurally identical but semantically different values.
 
+### [Type Witnesses (Compile-Time Proofs)](./type-witnesses.md)
+
+Runtime checks scattered throughout code—use type witnesses to prove conditions at compile time and eliminate redundant validation.
+
+### [Type-Safe Enumerations (Smart Enums)](./type-safe-enumerations.md)
+
+Using primitive enums loses type safety, behavior, and flexibility—use sealed class hierarchies to create rich, type-safe enumerations.
+
+### [Type-Level State Machines](./type-level-state-machines.md)
+
+Using enums or booleans to track state allows invalid transitions—use sealed class hierarchies to make illegal state transitions uncompilable.
+
+### [Indexed Types (Type-Level Indices)](./indexed-types.md)
+
+Array indexing with integers risks out-of-bounds errors—use typed indices to make invalid indices unrepresentable at compile time.
+
+### [Type-Safe String Interpolation (Preventing Injection Attacks)](./type-safe-string-interpolation.md)
+
+Building SQL, HTML, or URLs from string concatenation risks injection attacks—use typed builders to make injection unrepresentable.
+
+### [Variance Patterns (Covariance and Contravariance)](./variance-patterns.md)
+
+Ignoring variance in generic types leads to runtime casts and lost type safety—use `in` and `out` keywords to express variance constraints at compile time.
+
 ## Domain-Driven Design Patterns
 
 ### [Aggregate Roots (Enforcing Invariants Through Boundaries)](./aggregate-roots.md)
