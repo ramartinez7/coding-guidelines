@@ -553,4 +553,4 @@ public class ReadDatabase
 - [Event Sourcing](./event-sourcing.md) — often combined with CQRS
 - [Eventual Consistency](./eventual-consistency.md) — read models update asynchronously
 - [Event-Driven Architecture](./event-driven-architecture.md) — events connect write and read sides
-- [Materialized Views](./materialized-views.md) — pre-computed read models
+- [CAP Theorem](./cap-theorem.md) — understanding consistency trade-offs in read models

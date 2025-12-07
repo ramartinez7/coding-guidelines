@@ -345,6 +345,9 @@ public class OrderSagaOrchestrator
     public async Task HandleAsync(OrderSagaEvent.InventoryReserved @event)
     {
         var saga = await _sagas.GetAsync(@event.OrderId);
+        if (saga == null)
+            return;  // Saga not found, ignore event
+        
         saga.State = SagaState.ChargingPayment;
         saga.ReservationId = @event.ReservationId;
         await _sagas.SaveAsync(saga);
@@ -359,6 +362,9 @@ public class OrderSagaOrchestrator
     public async Task HandleAsync(OrderSagaEvent.PaymentCharged @event)
     {
         var saga = await _sagas.GetAsync(@event.OrderId);
+        if (saga == null)
+            return;  // Saga not found, ignore event
+        
         saga.State = SagaState.CreatingShipment;
         saga.PaymentId = @event.PaymentId;
         await _sagas.SaveAsync(saga);
@@ -372,6 +378,9 @@ public class OrderSagaOrchestrator
     public async Task HandleAsync(OrderSagaEvent.ShipmentCreated @event)
     {
         var saga = await _sagas.GetAsync(@event.OrderId);
+        if (saga == null)
+            return;  // Saga not found, ignore event
+        
         saga.State = SagaState.Completed;
         await _sagas.SaveAsync(saga);
         
@@ -386,6 +395,9 @@ public class OrderSagaOrchestrator
     public async Task HandleAsync(OrderSagaEvent.PaymentFailed @event)
     {
         var saga = await _sagas.GetAsync(@event.OrderId);
+        if (saga == null)
+            return;  // Saga not found, ignore event
+        
         saga.State = SagaState.Compensating;
         await _sagas.SaveAsync(saga);
         

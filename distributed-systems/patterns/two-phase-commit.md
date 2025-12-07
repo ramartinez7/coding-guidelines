@@ -539,4 +539,4 @@ public class TimeoutParticipant : ITransactionParticipant
 - [Saga Pattern](./saga-pattern.md) — alternative for long-running transactions
 - [Eventual Consistency](./eventual-consistency.md) — accepting temporary inconsistency
 - [CAP Theorem](./cap-theorem.md) — fundamental trade-offs
-- [Distributed Locks](./distributed-locks.md) — coordination primitive
+- [Event-Driven Architecture](./event-driven-architecture.md) — alternative coordination approach

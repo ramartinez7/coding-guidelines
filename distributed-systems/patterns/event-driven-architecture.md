@@ -544,7 +544,6 @@ public class EnrichedEvent<TEvent> : DomainEvent where TEvent : DomainEvent
 
 ## See Also
 
-- [Message Queues](./message-queues.md) — durable event transport
 - [Saga Pattern](./saga-pattern.md) — coordinating via events
 - [Event Sourcing](./event-sourcing.md) — events as source of truth
 - [CQRS](./cqrs.md) — events connect write and read models
