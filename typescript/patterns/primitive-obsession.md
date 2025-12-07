@@ -69,7 +69,7 @@ if (validEmail) {
 }
 
 const result = EmailAddress.create(userInput);  // Result pattern
-if (result.isSuccess) {
+if (result.success) {
   service.registerUser(result.value, 'Bob');
 } else {
   console.warn('Registration failed:', result.error);
