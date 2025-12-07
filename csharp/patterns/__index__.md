@@ -2,6 +2,32 @@
 
 A catalog of common code smells and refactoring patterns.
 
+## Clean Code Fundamentals
+
+### [Meaningful Names](./meaningful-names.md)
+
+Names should reveal intent—no comments needed to explain what a variable, method, or class does.
+
+### [Small Functions](./small-functions.md)
+
+Functions should do one thing, do it well, and be small enough to fit in your head.
+
+### [Comments and Documentation](./comments-documentation.md)
+
+Good code explains itself—comments should explain *why*, not *what*.
+
+### [Error Handling](./error-handling.md)
+
+Use exceptions for exceptional circumstances; use Result types for expected failures.
+
+### [SOLID Principles](./solid-principles.md)
+
+Five principles for creating maintainable, flexible object-oriented designs in C#.
+
+### [Dependency Injection](./dependency-injection.md)
+
+Inject dependencies through constructors rather than creating them internally or using service locators.
+
 ## Project Configuration
 
 ### [Nullable Reference Types](./nullable-reference-types.md)
