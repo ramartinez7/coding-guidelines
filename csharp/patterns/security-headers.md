@@ -148,6 +148,10 @@ public sealed record CspDirective
         return new CspDirective(newSources);
     }
     
+    /// <summary>
+    /// Allows unsafe inline scripts/styles. WARNING: Significantly weakens CSP.
+    /// Prefer using nonces or hashes instead. See CSP nonce generation section.
+    /// </summary>
     public CspDirective AllowUnsafeInline()
     {
         var newSources = new HashSet<string>(Sources) { "'unsafe-inline'" };

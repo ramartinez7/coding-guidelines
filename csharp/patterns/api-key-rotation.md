@@ -328,7 +328,16 @@ public class ApiKeyStore : IApiKeyStore
         if (record is null)
             return null;
         
-        return await GetKeyAsync(record.KeyValue);
+        // Construct directly from record to avoid extra database query
+        return new ApiKey
+        {
+            KeyValue = record.KeyValue,
+            ClientId = ClientId.Parse(record.ClientId.ToString()),
+            Version = ApiKeyVersion.Create(record.Version),
+            CreatedAt = record.CreatedAt,
+            ExpiresAt = record.ExpiresAt,
+            Scopes = record.Scopes.Split(',').ToHashSet()
+        };
     }
     
     public async Task<ApiKeyVersion?> GetLatestVersionAsync(ClientId clientId)

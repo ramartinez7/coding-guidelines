@@ -173,17 +173,7 @@ public class RequestSigningService : IRequestSigningService
             timestamp.ToString("O"),
             nonce);
         
-        var signatureBytes = key.KeyBytes.Use(keyBytes =>
-        {
-            using var hmac = key.Algorithm switch
-            {
-                SigningAlgorithm.HmacSha256 => new HMACSHA256(keyBytes),
-                SigningAlgorithm.HmacSha512 => new HMACSHA512(keyBytes),
-                _ => throw new ArgumentException("Unknown algorithm")
-            };
-            
-            return hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign));
-        });
+        var signatureBytes = ComputeHmac(key, stringToSign);
         
         return new RequestSignature
         {
@@ -206,8 +196,15 @@ public class RequestSigningService : IRequestSigningService
         if (string.IsNullOrWhiteSpace(signatureHeader))
             return new SignatureValidationResult.Invalid(SignatureFailureReason.SignatureMissing);
         
-        if (!DateTime.TryParse(timestampHeader, out var timestamp))
+        if (!DateTime.TryParseExact(
+            timestampHeader,
+            "O",
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.RoundtripKind,
+            out var timestamp))
+        {
             return new SignatureValidationResult.Invalid(SignatureFailureReason.TimestampExpired);
+        }
         
         // Check timestamp is within tolerance
         var age = DateTime.UtcNow - timestamp;
@@ -226,18 +223,7 @@ public class RequestSigningService : IRequestSigningService
             timestampHeader,
             nonceHeader);
         
-        var expectedSignatureBytes = key.KeyBytes.Use(keyBytes =>
-        {
-            using var hmac = key.Algorithm switch
-            {
-                SigningAlgorithm.HmacSha256 => new HMACSHA256(keyBytes),
-                SigningAlgorithm.HmacSha512 => new HMACSHA512(keyBytes),
-                _ => throw new ArgumentException("Unknown algorithm")
-            };
-            
-            return hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign));
-        });
-        
+        var expectedSignatureBytes = ComputeHmac(key, stringToSign);
         var expectedSignature = Convert.ToBase64String(expectedSignatureBytes);
         
         // Constant-time comparison to prevent timing attacks
@@ -257,6 +243,21 @@ public class RequestSigningService : IRequestSigningService
             Algorithm = key.Algorithm,
             Timestamp = timestamp,
             Nonce = nonceHeader
+        });
+    }
+    
+    private byte[] ComputeHmac(SigningKey key, string data)
+    {
+        return key.KeyBytes.Use(keyBytes =>
+        {
+            using var hmac = key.Algorithm switch
+            {
+                SigningAlgorithm.HmacSha256 => new HMACSHA256(keyBytes),
+                SigningAlgorithm.HmacSha512 => new HMACSHA512(keyBytes),
+                _ => throw new ArgumentException("Unknown algorithm")
+            };
+            
+            return hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
         });
     }
     

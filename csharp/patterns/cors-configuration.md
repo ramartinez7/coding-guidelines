@@ -87,7 +87,11 @@ public readonly record struct Origin
             ? $"https://{host}:{port}"
             : $"https://{host}";
         
-        return Create(uri).Value;  // Throws if invalid
+        var result = Create(uri);
+        if (result.IsFailure)
+            throw new ArgumentException($"Invalid host: {host}");
+        
+        return result.Value;
     }
     
     public static Origin Localhost(int port) =>
@@ -97,8 +101,12 @@ public readonly record struct Origin
     {
         return Create(requestOrigin)
             .Match(
-                onSuccess: origin => origin.Value.ToString()
-                    .Equals(Value.ToString(), StringComparison.OrdinalIgnoreCase),
+                onSuccess: origin => Uri.Compare(
+                    origin.Value,
+                    Value,
+                    UriComponents.AbsoluteUri,
+                    UriFormat.SafeUnescaped,
+                    StringComparison.OrdinalIgnoreCase) == 0,
                 onFailure: _ => false);
     }
     
