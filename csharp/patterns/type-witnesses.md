@@ -252,6 +252,7 @@ public class DocumentController
         var accessGrant = authzResult.Value;
         
         // Step 3: Load and validate document (get witness)
+        // LoadDocument is an application-specific method that retrieves documents
         var doc = await LoadDocument(docId);
         var validationResult = validator.Validate(doc);
         

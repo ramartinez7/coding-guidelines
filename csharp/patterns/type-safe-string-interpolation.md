@@ -181,6 +181,7 @@ public readonly struct UrlEncodedString : ITrustedString
 // Usage: SQL
 public class UserRepository
 {
+    // SqlQueryResult and database represent application-specific data access abstractions
     SqlQueryResult GetUserById(string userId)
     {
         // Type system forces parameterization

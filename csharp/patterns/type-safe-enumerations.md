@@ -127,6 +127,7 @@ public sealed record CreditCardPayment() : PaymentMethod("CreditCard")
             return PaymentResult.Failed("Invalid amount");
         
         // Process credit card
+        // ChargeCard is application-specific payment gateway integration
         return ChargeCard(cardNumber, cvv, amount);
     }
 }
@@ -141,6 +142,7 @@ public sealed record DebitCardPayment() : PaymentMethod("DebitCard")
     public PaymentResult Process(decimal amount, CardNumber cardNumber, Pin pin)
     {
         // Debit cards use PIN, not CVV
+        // ChargeDebitCard is application-specific payment gateway integration
         return ChargeDebitCard(cardNumber, pin, amount);
     }
 }
