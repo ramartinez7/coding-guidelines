@@ -22,23 +22,23 @@ Managing component state with RxJS requires boilerplate (`BehaviorSubject`, subs
   `
 })
 export class CounterComponent {
-  private countSubject = new BehaviorSubject<number>(0);
-  count$ = this.countSubject.asObservable();
+  private countState$ = new BehaviorSubject<number>(0);
+  count$ = this.countState$.asObservable();
   
   doubled$ = this.count$.pipe(
     map(count => count * 2)
   );
 
   increment() {
-    this.countSubject.next(this.countSubject.value + 1);
+    this.countState$.next(this.countState$.value + 1);
   }
 
   decrement() {
-    this.countSubject.next(this.countSubject.value - 1);
+    this.countState$.next(this.countState$.value - 1);
   }
 
   reset() {
-    this.countSubject.next(0);
+    this.countState$.next(0);
   }
 }
 ```

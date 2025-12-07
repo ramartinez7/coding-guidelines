@@ -127,10 +127,10 @@ export class UserListComponent {
     this.users[index] = newUser;
     
     // ✅ Creating new array - OnPush detects the reference change
-    this.users = [...this.users.slice(0, index), newUser, ...this.users.slice(index + 1)];
-    
-    // Or more simply:
     this.users = this.users.map((u, i) => i === index ? newUser : u);
+    
+    // Alternative with spread:
+    this.users = [...this.users.slice(0, index), newUser, ...this.users.slice(index + 1)];
   }
 }
 ```
