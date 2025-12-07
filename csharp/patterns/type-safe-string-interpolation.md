@@ -74,10 +74,12 @@ public interface ITrustedString
 /// SQL string that has been parameterized or properly escaped.
 /// Cannot be constructed from raw strings without explicit sanitization.
 /// </summary>
-public readonly record struct SqlString(string Value) : ITrustedString
+public readonly struct SqlString : ITrustedString
 {
+    public string Value { get; init; }
+    
     // Private constructor prevents casual creation
-    private SqlString(string value) : this()
+    private SqlString(string value)
     {
         Value = value;
     }
@@ -123,8 +125,15 @@ public readonly record struct SqlString(string Value) : ITrustedString
 /// <summary>
 /// HTML string that has been properly encoded to prevent XSS.
 /// </summary>
-public readonly record struct HtmlString(string Value) : ITrustedString
+public readonly struct HtmlString : ITrustedString
 {
+    public string Value { get; }
+    
+    private HtmlString(string value)
+    {
+        Value = value;
+    }
+    
     /// <summary>
     /// Encode user input for safe inclusion in HTML.
     /// </summary>
@@ -151,8 +160,15 @@ public readonly record struct HtmlString(string Value) : ITrustedString
 /// <summary>
 /// URL component that has been properly encoded.
 /// </summary>
-public readonly record struct UrlEncodedString(string Value) : ITrustedString
+public readonly struct UrlEncodedString : ITrustedString
 {
+    public string Value { get; }
+    
+    private UrlEncodedString(string value)
+    {
+        Value = value;
+    }
+    
     public static UrlEncodedString Encode(string unsafe)
     {
         var encoded = Uri.EscapeDataString(unsafe);

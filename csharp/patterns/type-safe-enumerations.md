@@ -6,7 +6,7 @@
 
 C# enums are just named integers. They can be cast to any invalid value, can't carry data or behavior, don't support exhaustive matching, and break when you need more than a simple flag. Type-safe enumerations solve these problems using sealed class hierarchies.
 
-> **Note:** Examples use `Result<T, E>` for error handling and custom domain types like `CardNumber`, `PaymentResult`, etc. These represent application-specific types that would be defined elsewhere in your domain model.
+> **Note:** Examples use `Result<T, E>` for error handling and custom domain types like `CardNumber`, `PaymentResult`, etc. These represent application-specific types that would be defined elsewhere in your domain model. Methods like `ChargeCard()`, `InitiateBankTransfer()`, etc. represent implementation-specific logic that would be defined in your payment processing service. Examples also use `UnreachableException` from `System.Diagnostics` (C# 11+).
 
 ## Example
 

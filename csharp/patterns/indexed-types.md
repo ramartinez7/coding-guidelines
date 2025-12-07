@@ -59,10 +59,12 @@ board.GetCell(5, 10);  // Compiles, throws at runtime
 /// <summary>
 /// Index that is guaranteed to be within bounds for size N.
 /// </summary>
-public readonly record struct Index<TSize>(int Value)
+public readonly struct Index<TSize>
     where TSize : ISize
 {
-    private Index(int value) : this()
+    public int Value { get; }
+    
+    private Index(int value)
     {
         Value = value;
     }
@@ -372,11 +374,13 @@ public class RgbColor
 /// <summary>
 /// Index constrained to a specific range.
 /// </summary>
-public readonly record struct RangeIndex<TMin, TMax>(int Value)
+public readonly struct RangeIndex<TMin, TMax>
     where TMin : ISize
     where TMax : ISize
 {
-    private RangeIndex(int value) : this()
+    public int Value { get; }
+    
+    private RangeIndex(int value)
     {
         Value = value;
     }

@@ -147,10 +147,19 @@ foreach (var animal in animalRepo.GetAll())
 }
 
 // Contravariance: Animal writer can write Dogs
-IWriter<Animal> animalWriter = GetAnimalWriter();
+// Create a writer that accepts any Animal
+IWriter<Animal> animalWriter = new AnimalWriter();
 IWriter<Dog> dogWriter = animalWriter;  // ✅ Allowed: contravariance
 
 dogWriter.Add(new Dog());  // Safe: Dog is an Animal
+
+// Helper implementation
+public class AnimalWriter : IWriter<Animal>
+{
+    public void Add(Animal item) => Console.WriteLine($"Added: {item.Name}");
+    public void Remove(Animal item) => Console.WriteLine($"Removed: {item.Name}");
+    public void Update(Animal item) => Console.WriteLine($"Updated: {item.Name}");
+}
 
 // Type-safe processing with covariance
 void ProcessAnimals(IReadOnlyRepository<Animal> animals)
