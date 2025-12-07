@@ -204,6 +204,10 @@ Ignoring variance in generic types leads to runtime casts and lost type safety�
 
 ## Domain-Driven Design Patterns
 
+### [Entities vs Value Objects (Identity vs Equality)](./entities-vs-value-objects.md)
+
+Objects with mutable state and identity tracked over time—distinguish entities from value objects to model domain accurately.
+
 ### [Aggregate Roots (Enforcing Invariants Through Boundaries)](./aggregate-roots.md)
 
 Entities with direct public setters allow invariants to be broken—use aggregate roots to enforce consistency boundaries.
@@ -211,6 +215,22 @@ Entities with direct public setters allow invariants to be broken—use aggregat
 ### [Repository Pattern (Domain-Centric Data Access)](./repository-pattern.md)
 
 Domain logic coupled to database—use repositories to abstract persistence and keep domain pure.
+
+### [Domain Services (Stateless Domain Operations)](./domain-services.md)
+
+Business logic that doesn't naturally belong to any single entity or value object—use domain services to coordinate operations across multiple aggregates.
+
+### [Domain Factories (Complex Object Creation)](./domain-factories.md)
+
+Complex object creation with invariants and multiple dependencies—use factories to encapsulate construction logic and ensure valid aggregates.
+
+### [Bounded Contexts (Strategic Domain Boundaries)](./bounded-contexts.md)
+
+Large models with conflicting meanings for the same term—divide the system into bounded contexts where each term has one precise definition.
+
+### [Anti-Corruption Layer (Protecting Domain Boundaries)](./anti-corruption-layer.md)
+
+External systems with incompatible models pollute your domain—use an anti-corruption layer to translate and isolate foreign concepts.
 
 ### [Ubiquitous Language (Translating Business Terms to Types)](./ubiquitous-language.md)
 
