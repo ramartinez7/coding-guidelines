@@ -39,7 +39,14 @@ jobs:
           # Check for broken relative links to other patterns
           echo "Checking for broken internal links..."
           
-          BROKEN_LINKS=0
+          if [ ! -d "csharp/patterns" ]; then
+            echo "::notice::Pattern directory not found, skipping link check"
+            exit 0
+          fi
+          
+          BROKEN_LINKS_FILE=$(mktemp)
+          echo "0" > "$BROKEN_LINKS_FILE"
+          
           for file in $(find csharp/patterns -name "*.md"); do
             # Extract markdown links [text](path.md)
             grep -oP '\[.*?\]\(\./[^\)]+\.md\)' "$file" 2>/dev/null | while read -r link; do
@@ -51,10 +58,13 @@ jobs:
               
               if [ ! -f "$full_path" ]; then
                 echo "::error file=$file::Broken link: $link (target not found: $full_path)"
-                BROKEN_LINKS=$((BROKEN_LINKS + 1))
+                echo $(( $(cat "$BROKEN_LINKS_FILE") + 1 )) > "$BROKEN_LINKS_FILE"
               fi
             done
           done
+          
+          BROKEN_LINKS=$(cat "$BROKEN_LINKS_FILE")
+          rm "$BROKEN_LINKS_FILE"
           
           if [ $BROKEN_LINKS -gt 0 ]; then
             echo "::error::Found $BROKEN_LINKS broken internal link(s)"
@@ -67,6 +77,16 @@ jobs:
         run: |
           # Check if new pattern files exist but aren't in __index__.md
           echo "Checking if all pattern files are indexed..."
+          
+          if [ ! -d "csharp/patterns" ]; then
+            echo "::notice::Pattern directory not found, skipping index sync check"
+            exit 0
+          fi
+          
+          if [ ! -f "csharp/patterns/__index__.md" ]; then
+            echo "::notice::Index file not found, skipping index sync check"
+            exit 0
+          fi
           
           MISSING_IN_INDEX=0
           for file in csharp/patterns/*.md; do
@@ -95,8 +115,18 @@ jobs:
           # Ensure pattern files use kebab-case
           echo "Checking file naming conventions..."
           
+          if [ ! -d "csharp/patterns" ]; then
+            echo "::notice::Pattern directory not found, skipping naming check"
+            exit 0
+          fi
+          
           BAD_NAMES=0
           for file in csharp/patterns/*.md; do
+            # Check if glob matched anything
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+            
             filename=$(basename "$file")
             
             # Skip __index__.md

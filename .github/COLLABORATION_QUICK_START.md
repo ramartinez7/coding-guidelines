@@ -8,7 +8,7 @@
 
 ```bash
 # Check what others are working on
-# Look at: https://github.com/ramartinez7/coding-guidelines/pulls
+# Look at open PRs in your repository
 # If someone is already working on your pattern, coordinate with them
 ```
 
