@@ -1,6 +1,10 @@
 # CODEOWNERS - Define who reviews what
 # This file helps prevent conflicts by assigning reviewers based on the files changed.
 # Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# IMPORTANT: Customize the usernames below for your repository!
+# Replace @ramartinez7 with your organization teams or maintainer usernames.
+# Example: @your-org/docs-team or @your-maintainer-username
 
 # Default: All contributors need approval from the repository maintainer
 * @ramartinez7
