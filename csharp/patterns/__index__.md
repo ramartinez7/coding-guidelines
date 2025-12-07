@@ -164,6 +164,28 @@ Building URLs with string concatenation and magic strings—use typed link relat
 
 Processing multiple items with loops and mixed results in a single array—use typed batch operations with explicit success/failure tracking.
 
+## API Security Patterns
+
+### [CSRF Protection (Anti-Forgery Tokens)](./csrf-protection.md)
+
+Using string-based tokens or forgetting CSRF checks—use typed anti-forgery tokens to prevent cross-site request forgery at compile time.
+
+### [API Key Rotation (Time-Limited Credentials)](./api-key-rotation.md)
+
+Using permanent API keys as strings—use time-limited, versioned API keys with automatic rotation to minimize exposure windows.
+
+### [Request Signing (Message Authentication)](./request-signing.md)
+
+Trusting API requests at face value—use HMAC-based request signatures to verify authenticity and prevent tampering.
+
+### [Security Headers (Type-Safe HTTP Security)](./security-headers.md)
+
+Setting security headers with string literals—use typed security headers to enforce security policies at compile time.
+
+### [CORS Configuration (Type-Safe Origin Validation)](./cors-configuration.md)
+
+Using string-based CORS policies—use typed origin validation to prevent unauthorized cross-origin access at compile time.
+
 ## Type-Driven Development Patterns
 
 ### [Phantom Types (Compile-Time State Tracking)](./phantom-types.md)
