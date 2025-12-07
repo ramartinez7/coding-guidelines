@@ -276,6 +276,14 @@ public class BatchProcessor : IBatchProcessor
 }
 
 // Service layer
+/// <summary>
+/// Unit type representing "no value" or void as a value.
+/// </summary>
+public readonly record struct Unit
+{
+    public static Unit Value { get; } = new();
+}
+
 public interface IProductService
 {
     Task<Result<Product, BatchError>> CreateProductAsync(CreateProductDto dto);

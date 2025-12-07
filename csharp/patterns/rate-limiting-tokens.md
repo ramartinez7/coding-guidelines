@@ -96,7 +96,7 @@ public interface IRateLimiter
 public class TokenBucketRateLimiter : IRateLimiter
 {
     private readonly int _capacity;
-    private readonly int _refillRate;  // tokens per second
+    private readonly int _refillRate;  // Number of tokens added per second
     private readonly Dictionary<ClientId, Bucket> _buckets = new();
     
     public TokenBucketRateLimiter(int capacity, int refillRate)
@@ -124,7 +124,7 @@ public class TokenBucketRateLimiter : IRateLimiter
             });
         }
         
-        var retryAfter = bucket.EstimateRefillTime(cost);
+        var retryAfter = bucket.EstimateRefillTime(cost, _refillRate);
         
         return new RateLimitResult.Denied(
             RemainingTokens: bucket.Available,
@@ -177,13 +177,14 @@ public class TokenBucketRateLimiter : IRateLimiter
             _tokens = Math.Max(0, _tokens - count);
         }
         
-        public DateTime EstimateRefillTime(int needed)
+        public DateTime EstimateRefillTime(int needed, int refillRate)
         {
             var deficit = needed - _tokens;
             if (deficit <= 0)
                 return DateTime.UtcNow;
             
-            return DateTime.UtcNow.AddSeconds(deficit);
+            var secondsNeeded = (double)deficit / refillRate;
+            return DateTime.UtcNow.AddSeconds(secondsNeeded);
         }
     }
 }

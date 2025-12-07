@@ -110,14 +110,20 @@ public readonly record struct EntityTag
     
     /// <summary>
     /// Parses ETag from HTTP header value.
+    /// Format: "value" for strong ETags, W/"value" for weak ETags.
     /// </summary>
     public static Result<EntityTag, string> Parse(string? headerValue)
     {
         if (string.IsNullOrWhiteSpace(headerValue))
             return Result<EntityTag, string>.Failure("ETag header is empty");
         
-        var isWeak = headerValue.StartsWith("W/");
-        var value = headerValue.Trim('"').TrimStart('W').TrimStart('/').Trim('"');
+        var trimmed = headerValue.Trim();
+        var isWeak = trimmed.StartsWith("W/", StringComparison.Ordinal);
+        
+        // Extract value: W/"value" -> "value" or "value" -> "value"
+        var value = isWeak
+            ? trimmed.Length > 4 ? trimmed.Substring(3, trimmed.Length - 4) : ""
+            : trimmed.Length > 2 ? trimmed.Substring(1, trimmed.Length - 2) : "";
         
         if (string.IsNullOrWhiteSpace(value))
             return Result<EntityTag, string>.Failure("Invalid ETag format");
