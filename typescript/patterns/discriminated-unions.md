@@ -90,7 +90,7 @@ function processOrder(order: Order): void {
 // ✅ Invalid states are now impossible to represent
 const pendingOrder: Order = {
   kind: 'pending',
-  id: '123'
+  id: '123',
   // Can't add shippedAt or trackingNumber—they don't exist on PendingOrder
 };
 
@@ -98,7 +98,7 @@ const shippedOrder: Order = {
   kind: 'shipped',
   id: '123',
   shippedAt: new Date(),
-  trackingNumber: 'TRACK123'
+  trackingNumber: 'TRACK123',
   // Must provide both shippedAt and trackingNumber
 };
 ```
