@@ -128,8 +128,8 @@ public sealed record ConnectingConnection : DatabaseConnection
         ConnectionString = connectionString;
     }
     
-    // Transition: Connecting → Connected (success)
-    public async Task<ConnectedConnection> AwaitConnection()
+    // Transition: Connecting → Connected (success) or Failed (error)
+    public async Task<DatabaseConnection> AwaitConnection()
     {
         var connection = new SqlConnection(this.ConnectionString);
         
