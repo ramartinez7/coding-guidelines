@@ -144,6 +144,26 @@ Checking `Accept` headers with strings and manually serializing responses—use 
 
 Using page numbers or offsets for pagination exposes implementation details and breaks when data changes—use opaque cursor types for stable, efficient pagination.
 
+### [Rate Limiting (Type-Safe Token Bucket)](./rate-limiting-tokens.md)
+
+Manual rate limit checks scattered throughout code—use typed rate limit tokens to enforce limits at compile time.
+
+### [Correlation IDs (Type-Safe Distributed Tracing)](./correlation-ids.md)
+
+Passing correlation IDs as strings or relying on ambient context—use typed correlation tokens to track requests across service boundaries.
+
+### [Conditional Requests (Type-Safe ETags and Preconditions)](./conditional-requests.md)
+
+Checking ETags and If-Match headers with strings—use typed entity tags to prevent lost updates and enable optimistic concurrency.
+
+### [HATEOAS Links (Type-Safe Hypermedia)](./hateoas-links.md)
+
+Building URLs with string concatenation and magic strings—use typed link relations to make APIs discoverable and self-documenting.
+
+### [Batch Operations (Type-Safe Bulk Processing)](./batch-operations.md)
+
+Processing multiple items with loops and mixed results in a single array—use typed batch operations with explicit success/failure tracking.
+
 ## Type-Driven Development Patterns
 
 ### [Phantom Types (Compile-Time State Tracking)](./phantom-types.md)
