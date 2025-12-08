@@ -190,6 +190,12 @@ Building URLs with string concatenation and magic strings—use typed link relat
 
 Processing multiple items with loops and mixed results in a single array—use typed batch operations with explicit success/failure tracking.
 
+## Security Patterns
+
+### [Common Security Attacks and Prevention Strategies](./security-attacks-overview.md)
+
+Comprehensive overview of OWASP Top 10 security risks and how to prevent them using type-safe patterns—covers injection attacks, XSS, CSRF, deserialization, XXE, path traversal, open redirects, cryptographic failures, and SSRF with defense-in-depth strategies.
+
 ## API Security Patterns
 
 ### [CSRF Protection (Anti-Forgery Tokens)](./csrf-protection.md)
@@ -279,6 +285,24 @@ Building SQL, HTML, or URLs from string concatenation risks injection attacks—
 ### [Variance Patterns (Covariance and Contravariance)](./variance-patterns.md)
 
 Ignoring variance in generic types leads to runtime casts and lost type safety—use `in` and `out` keywords to express variance constraints at compile time.
+
+## Clean Architecture Patterns
+
+### [Clean Architecture (Onion Architecture / Hexagonal Architecture)](./clean-architecture.md)
+
+Large codebases with tangled dependencies make testing and change difficult—organize code in layers where dependencies point inward toward the domain.
+
+### [Use Cases / Application Services (Orchestrating Domain Logic)](./use-cases.md)
+
+Business workflows scattered across controllers and services make the system's capabilities unclear—encapsulate each use case as a distinct class that orchestrates domain logic.
+
+### [Screaming Architecture (Project Structure Reveals Intent)](./screaming-architecture.md)
+
+Generic folder structures like "Controllers," "Services," "Models" hide what the system does—organize by features so the architecture screams the business domain.
+
+### [Dependency Rule Enforcement (Architectural Constraints)](./dependency-rule-enforcement.md)
+
+Dependencies between layers can accidentally point the wrong direction—use compile-time checks to enforce that dependencies flow inward toward the domain.
 
 ## Domain-Driven Design Patterns
 
