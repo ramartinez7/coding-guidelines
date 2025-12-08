@@ -492,7 +492,14 @@ Features/
 Controllers/OrdersController.cs#PlaceOrder()  → Features/Orders/PlaceOrder/PlaceOrderController.cs
 Services/OrderService.cs#PlaceOrder()         → Features/Orders/PlaceOrder/PlaceOrderUseCase.cs
 Models/PlaceOrderRequest.cs                   → Features/Orders/PlaceOrder/PlaceOrderRequest.cs
-// etc.
+
+// If a controller has multiple related actions, split them:
+Controllers/OrdersController.cs
+  - PlaceOrder()  → Features/Orders/PlaceOrder/PlaceOrderController.cs
+  - CancelOrder() → Features/Orders/CancelOrder/CancelOrderController.cs
+  - GetOrder()    → Features/Orders/GetOrderDetails/GetOrderDetailsController.cs
+
+// Each feature gets its own controller, focused on that single capability
 ```
 
 ### Step 4: Refactor Incrementally

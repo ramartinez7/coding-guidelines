@@ -359,7 +359,7 @@ namespace Domain.Interfaces
 {
     public interface IOrderRepository
     {
-        Task<Order> GetByIdAsync(OrderId id);
+        Task<Option<Order>> GetByIdAsync(OrderId id);
     }
 }
 

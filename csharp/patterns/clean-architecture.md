@@ -251,8 +251,6 @@ namespace MyApp.Application.UseCases.PlaceOrder
                     onSome: product =>
                     {
                         var result = order.AddItem(product, itemDto.Quantity);
-                        if (result.IsSuccess)
-                            product.ReserveStock(itemDto.Quantity);
                         return Task.FromResult(result);
                     },
                     onNone: () => Task.FromResult(

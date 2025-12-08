@@ -548,7 +548,7 @@ public sealed class AuthorizingUseCaseDecorator<TCommand, TResult, TError> : IUs
 services.Decorate<IUseCase<RegisterUserCommand, UserId, RegisterUserError>>(
     (inner, provider) => new LoggingUseCaseDecorator<RegisterUserCommand, UserId, RegisterUserError>(
         inner,
-        provider.GetRequiredService<ILogger>()));
+        provider.GetRequiredService<ILogger<LoggingUseCaseDecorator<RegisterUserCommand, UserId, RegisterUserError>>>()));
 ```
 
 ## Why It's a Problem

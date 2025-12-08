@@ -443,12 +443,16 @@ namespace MyApp.Tests
   
   <!-- Domain layer: NO external dependencies allowed -->
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'Domain'">
-    <!-- Domain can only reference core .NET libraries -->
-    <PackageReference Update="Microsoft.EntityFrameworkCore" Version="*">
+    <!-- Explicitly block infrastructure packages in Domain -->
+    <PackageReference Update="Microsoft.EntityFrameworkCore">
       <PrivateAssets>none</PrivateAssets>
       <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
-    <PackageReference Update="SendGrid" Version="*">
+    <PackageReference Update="SendGrid">
+      <PrivateAssets>none</PrivateAssets>
+      <ExcludeAssets>all</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Update="Dapper">
       <PrivateAssets>none</PrivateAssets>
       <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
@@ -456,7 +460,7 @@ namespace MyApp.Tests
   
   <!-- Application layer: NO infrastructure packages -->
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'Application'">
-    <PackageReference Update="Microsoft.EntityFrameworkCore" Version="*">
+    <PackageReference Update="Microsoft.EntityFrameworkCore">
       <PrivateAssets>none</PrivateAssets>
       <ExcludeAssets>all</ExcludeAssets>
     </PackageReference>
