@@ -285,3 +285,5 @@ public class OrderService
 - [Enforcing Call Order](./enforcing-call-order.md) — state transitions
 - [Domain Events](./domain-events.md) — announcing changes
 - [Repository Pattern](./repository-pattern.md) — persistence
+- [Domain Invariants](./domain-invariants.md) — enforcing business rules at construction
+- [Type-Safe Workflow Modeling](./type-safe-workflow-modeling.md) — modeling aggregate state transitions

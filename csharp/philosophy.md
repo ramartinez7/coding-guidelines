@@ -186,11 +186,83 @@ Instead of testing that code is correct, **construct it so it cannot be incorrec
 
 Every pattern in this catalog aims to shift errors left—catching them earlier.
 
+### Domain Invariants: The Foundation
+
+> An invariant is a business rule that must always hold true for an object.
+
+Rather than validating these rules repeatedly throughout the codebase, enforce them at construction. Once created, the object is **guaranteed** to be in a valid state.
+
+```csharp
+// ❌ Without invariants: validation everywhere
+public class BankAccount
+{
+    public decimal Balance { get; set; }
+    
+    public void Withdraw(decimal amount)
+    {
+        // Must validate every time
+        if (Balance < amount)
+            throw new InvalidOperationException("Insufficient funds");
+        Balance -= amount;
+    }
+}
+
+// ✅ With invariants: impossible to violate
+public sealed class BankAccount
+{
+    public Money Balance { get; private set; }
+    public Money OverdraftLimit { get; }
+    
+    private BankAccount(Money balance, Money overdraftLimit)
+    {
+        Balance = balance;
+        OverdraftLimit = overdraftLimit;
+    }
+    
+    public static Result<BankAccount, string> Create(
+        Money initialBalance,
+        Money overdraftLimit)
+    {
+        // Invariant enforced at construction
+        if (initialBalance.Amount < 0)
+            return Result<BankAccount, string>.Failure(
+                "Initial balance cannot be negative");
+        
+        if (overdraftLimit.Amount < 0)
+            return Result<BankAccount, string>.Failure(
+                "Overdraft limit cannot be negative");
+        
+        return Result<BankAccount, string>.Success(
+            new BankAccount(initialBalance, overdraftLimit));
+    }
+    
+    public Result<Unit, string> Withdraw(Money amount)
+    {
+        // Invariant: balance cannot go below overdraft limit
+        if ((Balance - amount).Amount < -OverdraftLimit.Amount)
+            return Result<Unit, string>.Failure("Insufficient funds");
+        
+        Balance = Balance - amount;
+        return Result<Unit, string>.Success(Unit.Value);
+    }
+}
+```
+
+**Three Pillars of Invariant Enforcement:**
+
+1. **Private constructors** — Force creation through static factories
+2. **Validation at construction** — Check rules once, trust afterward
+3. **Encapsulation** — Private setters prevent external mutation
+
+This approach transforms business rules from runtime checks scattered throughout the code into compile-time guarantees enforced by the type system.
+
 ### Related Patterns
 
-- [Strongly Typed IDs](./patterns/strongly-typed-ids.md)
-- [Enforcing Call Order](./patterns/enforcing-call-order.md)
-- [Enum State Machine](./patterns/enum-state-machine.md)
+- [Domain Invariants](./patterns/domain-invariants.md) — comprehensive guide
+- [Smart Constructors](./patterns/smart-constructors.md) — parse, don't validate
+- [Strongly Typed IDs](./patterns/strongly-typed-ids.md) — identity invariants
+- [Enforcing Call Order](./patterns/enforcing-call-order.md) — sequence invariants
+- [Type-Safe Workflow Modeling](./patterns/type-safe-workflow-modeling.md) — state transition invariants
 
 ---
 
@@ -409,3 +481,17 @@ These nine philosophies reinforce each other:
 | **Clean Architecture** | Is business logic independent of frameworks and infrastructure? |
 
 When reviewing code or designing new features, ask these questions. The patterns in this catalog are tools to answer "yes" to each one.
+
+### The Type Safety Checklist
+
+Apply these questions when modeling domain concepts:
+
+1. **Does this have business meaning?** → Consider creating a type ([When to Create Domain Types](./patterns/when-to-create-domain-types.md))
+2. **Does this have invariants?** → Enforce at construction ([Domain Invariants](./patterns/domain-invariants.md))
+3. **Is validation optional?** → Use smart constructors ([Smart Constructors](./patterns/smart-constructors.md))
+4. **Are errors just strings?** → Create typed error cases ([Typed Errors](./patterns/typed-errors.md))
+5. **Is this a workflow?** → Model states as types ([Type-Safe Workflow Modeling](./patterns/type-safe-workflow-modeling.md))
+6. **Can IDs be swapped?** → Use strongly-typed IDs ([Strongly Typed IDs](./patterns/strongly-typed-ids.md))
+7. **Can methods be called in wrong order?** → Encode sequence in types ([Enforcing Call Order](./patterns/enforcing-call-order.md))
+
+These patterns work together to create code where **invalid states are unrepresentable** and **the compiler prevents business rule violations**.
