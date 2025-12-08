@@ -248,24 +248,28 @@ catch (Exception ex)
 }
 
 // ✅ Handle specific exceptions differently
-try
+Result<FileData, FileError> ProcessFileWithErrorHandling(string path)
 {
-    ProcessFile(path);
-}
-catch (FileNotFoundException ex)
-{
-    _logger.LogWarning(ex, "File not found: {Path}", path);
-    return Result.Failure(new FileNotFound(path));
-}
-catch (UnauthorizedAccessException ex)
-{
-    _logger.LogError(ex, "Access denied: {Path}", path);
-    return Result.Failure(new AccessDenied(path));
-}
-catch (IOException ex)
-{
-    _logger.LogError(ex, "I/O error reading file: {Path}", path);
-    throw;  // Infrastructure error—let it bubble
+    try
+    {
+        var data = ProcessFile(path);
+        return Result<FileData, FileError>.Success(data);
+    }
+    catch (FileNotFoundException ex)
+    {
+        _logger.LogWarning(ex, "File not found: {Path}", path);
+        return Result<FileData, FileError>.Failure(new FileNotFound(path));
+    }
+    catch (UnauthorizedAccessException ex)
+    {
+        _logger.LogError(ex, "Access denied: {Path}", path);
+        return Result<FileData, FileError>.Failure(new AccessDenied(path));
+    }
+    catch (IOException ex)
+    {
+        _logger.LogError(ex, "I/O error reading file: {Path}", path);
+        throw;  // Infrastructure error—let it bubble
+    }
 }
 ```
 

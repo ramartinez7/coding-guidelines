@@ -230,7 +230,7 @@ void ResizeRectangle(Rectangle rect)
 ### ✅ After
 
 ```csharp
-// Use separate types instead of inheritance
+// Option 1: Use separate types instead of inheritance
 public sealed record Rectangle(int Width, int Height)
 {
     public int Area => Width * Height;
@@ -241,18 +241,18 @@ public sealed record Square(int Side)
     public int Area => Side * Side;
 }
 
-// Or use a common abstraction
+// Option 2: Use a common abstraction if polymorphism is needed
 public interface IShape
 {
     int Area { get; }
 }
 
-public sealed record Rectangle(int Width, int Height) : IShape
+public sealed record RectangleShape(int Width, int Height) : IShape
 {
     public int Area => Width * Height;
 }
 
-public sealed record Square(int Side) : IShape
+public sealed record SquareShape(int Side) : IShape
 {
     public int Area => Side * Side;
 }

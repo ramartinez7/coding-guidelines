@@ -101,12 +101,17 @@ private Result<Order, ProcessOrderError> ValidateInventory(Order order)
     {
         if (!HasSufficientInventory(item))
         {
-            PlaceOrderOnHold(order);
-            SendInventoryHoldEmail(order);
-            return Result.Failure<Order, ProcessOrderError>(new InsufficientInventory(item.ProductId));
+            return HandleInsufficientInventory(order, item.ProductId);
         }
     }
     return Result.Success<Order, ProcessOrderError>(order);
+}
+
+private Result<Order, ProcessOrderError> HandleInsufficientInventory(Order order, ProductId productId)
+{
+    PlaceOrderOnHold(order);
+    SendInventoryHoldEmail(order);
+    return Result.Failure<Order, ProcessOrderError>(new InsufficientInventory(productId));
 }
 
 private bool HasSufficientInventory(OrderItem item)
