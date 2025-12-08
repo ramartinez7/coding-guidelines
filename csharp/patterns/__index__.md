@@ -250,6 +250,26 @@ Using weak algorithms, hardcoded keys, or manual crypto implementation—use mod
 
 ## Type-Driven Development Patterns
 
+### [When to Create Domain Types (Domain Primitive Decision Guide)](./when-to-create-domain-types.md)
+
+Not every string, int, or decimal needs its own type—use this guide to decide when to create domain-specific types versus using primitives.
+
+### [Smart Constructors (Parse, Don't Validate)](./smart-constructors.md)
+
+Validation that returns boolean forces callers to check and remember—use smart constructors that transform untrusted input into trusted types.
+
+### [Domain Invariants (Enforcing Business Rules at Construction)](./domain-invariants.md)
+
+Business rules validated at multiple points allow invalid objects to exist—enforce invariants in constructors to make invalid states unrepresentable.
+
+### [Typed Errors (Making Failure Cases Explicit)](./typed-errors.md)
+
+String error messages lose type information and force string parsing—use discriminated unions to represent specific error cases with type safety.
+
+### [Type-Safe Workflow Modeling (Business Processes as Types)](./type-safe-workflow-modeling.md)
+
+Business workflows with runtime state checks allow invalid transitions—model each workflow step as a distinct type to make illegal transitions unrepresentable.
+
 ### [Phantom Types (Compile-Time State Tracking)](./phantom-types.md)
 
 Using runtime checks or comments to track object state—use phantom type parameters to encode state in the type system.
