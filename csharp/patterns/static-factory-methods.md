@@ -109,5 +109,8 @@ public static Result<Temperature> FromCelsius(double celsius)
 
 ## See Also
 
-- [Primitive Obsession](./primitive-obsession.md)
-- [Data Clumps](./data-clump.md)
+- [Primitive Obsession](./primitive-obsession.md) — when to create types
+- [Data Clumps](./data-clump.md) — grouping related values
+- [Smart Constructors](./smart-constructors.md) — parse, don't validate pattern
+- [Domain Invariants](./domain-invariants.md) — enforcing business rules at construction
+- [When to Create Domain Types](./when-to-create-domain-types.md) — decision framework

@@ -193,6 +193,8 @@ public User? FindUser(int id)  // Nullable return type is honest
 
 ## See Also
 
-- [Primitive Obsession](./primitive-obsession.md)
-- [Static Factory Methods](./static-factory-methods.md)
-- [Enum to Class Hierarchy](./enum-to-class-hierarchy.md)
+- [Primitive Obsession](./primitive-obsession.md) — wrapping primitives in types
+- [Static Factory Methods](./static-factory-methods.md) — construction with validation
+- [Enum to Class Hierarchy](./enum-to-class-hierarchy.md) — modeling variants
+- [Typed Errors](./typed-errors.md) — making failure cases explicit with types
+- [Smart Constructors](./smart-constructors.md) — parse, don't validate

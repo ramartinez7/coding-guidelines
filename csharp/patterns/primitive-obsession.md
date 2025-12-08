@@ -112,5 +112,8 @@ else
 
 ## See Also
 
-- [Data Clumps](./data-clump.md)
-- [Static Factory Methods](./static-factory-methods.md)
+- [Data Clumps](./data-clump.md) — grouping related primitives
+- [Static Factory Methods](./static-factory-methods.md) — construction with validation
+- [When to Create Domain Types](./when-to-create-domain-types.md) — decision framework for creating types
+- [Smart Constructors](./smart-constructors.md) — parse, don't validate
+- [Domain Invariants](./domain-invariants.md) — enforcing business rules

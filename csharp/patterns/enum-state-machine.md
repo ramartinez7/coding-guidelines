@@ -172,6 +172,8 @@ while (state is not UpgradeComplete)
 
 ## See Also
 
-- [Enum to Class Hierarchy](./enum-to-class-hierarchy.md)
-- [Enforcing Call Order](./enforcing-call-order.md)
-- [Flag Arguments](./flag-arguments.md)
+- [Enum to Class Hierarchy](./enum-to-class-hierarchy.md) — modeling variants with types
+- [Enforcing Call Order](./enforcing-call-order.md) — method sequencing
+- [Flag Arguments](./flag-arguments.md) — polymorphism over booleans
+- [Type-Safe Workflow Modeling](./type-safe-workflow-modeling.md) — comprehensive workflow patterns
+- [Type-Level State Machines](./type-level-state-machines.md) — compile-time state tracking
