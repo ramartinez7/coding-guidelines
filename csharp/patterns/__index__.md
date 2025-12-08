@@ -280,6 +280,24 @@ Building SQL, HTML, or URLs from string concatenation risks injection attacks—
 
 Ignoring variance in generic types leads to runtime casts and lost type safety—use `in` and `out` keywords to express variance constraints at compile time.
 
+## Clean Architecture Patterns
+
+### [Clean Architecture (Onion Architecture / Hexagonal Architecture)](./clean-architecture.md)
+
+Large codebases with tangled dependencies make testing and change difficult—organize code in layers where dependencies point inward toward the domain.
+
+### [Use Cases / Application Services (Orchestrating Domain Logic)](./use-cases.md)
+
+Business workflows scattered across controllers and services make the system's capabilities unclear—encapsulate each use case as a distinct class that orchestrates domain logic.
+
+### [Screaming Architecture (Project Structure Reveals Intent)](./screaming-architecture.md)
+
+Generic folder structures like "Controllers," "Services," "Models" hide what the system does—organize by features so the architecture screams the business domain.
+
+### [Dependency Rule Enforcement (Architectural Constraints)](./dependency-rule-enforcement.md)
+
+Dependencies between layers can accidentally point the wrong direction—use compile-time checks to enforce that dependencies flow inward toward the domain.
+
 ## Domain-Driven Design Patterns
 
 ### [Entities vs Value Objects (Identity vs Equality)](./entities-vs-value-objects.md)

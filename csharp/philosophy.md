@@ -288,9 +288,113 @@ Each boundary transforms "untrusted" into "trusted" types. Downstream layers don
 
 ---
 
+## 9. Clean Architecture (Dependency Management)
+
+> How do I organize code so that business logic is independent of frameworks, UI, and infrastructure?
+
+Clean Architecture (also called Onion Architecture or Hexagonal Architecture) is an architectural pattern that complements DDD by organizing code into layers with strict dependency rules.
+
+### The Dependency Rule
+
+> Source code dependencies must point only inward, toward higher-level policies.
+
+```
+┌─────────────────────────────────────┐
+│    Infrastructure Layer             │  ← Frameworks, DB, External APIs
+│  ┌─────────────────────────────┐    │
+│  │    Application Layer        │    │  ← Use Cases, Orchestration
+│  │  ┌─────────────────────┐    │    │
+│  │  │   Domain Layer      │    │    │  ← Business Logic & Rules
+│  │  │  (Core Business)    │    │    │
+│  │  └─────────────────────┘    │    │
+│  └─────────────────────────────┘    │
+└─────────────────────────────────────┘
+
+Dependencies flow INWARD only →
+```
+
+### Core Principles
+
+| Principle | Description |
+|-----------|-------------|
+| **Independent of frameworks** | Business logic doesn't depend on ASP.NET, EF, or any framework |
+| **Testable** | Business rules can be tested without UI, database, web server |
+| **Independent of UI** | Can swap Web UI for Console UI without changing business logic |
+| **Independent of database** | Can swap SQL for NoSQL without changing business logic |
+| **Independent of external agencies** | Business rules don't know about external services |
+
+### Layers Explained
+
+**Domain Layer (Center)**
+- Pure business logic and rules
+- Entities, value objects, domain services
+- No dependencies on anything
+- Example: `Order.AddItem()`, `Customer.DeactivateAccount()`
+
+**Application Layer (Middle)**
+- Use cases / application services
+- Orchestrates domain objects
+- Depends only on Domain
+- Example: `PlaceOrderUseCase`, `RegisterUserUseCase`
+
+**Infrastructure Layer (Outer)**
+- Implementations of interfaces defined in inner layers
+- Database access, external APIs, email services
+- Depends on Application and Domain
+- Example: `OrderRepository`, `SendGridEmailService`
+
+**Presentation Layer (Outermost)**
+- HTTP controllers, CLI handlers, gRPC services
+- Translates external requests to use case commands
+- Depends on Application (and Infrastructure for DI setup)
+- Example: `OrdersController.Post()` → `PlaceOrderUseCase.ExecuteAsync()`
+
+### Dependency Inversion
+
+Inner layers define **interfaces** for what they need. Outer layers provide **implementations**.
+
+```csharp
+// Domain layer defines what it needs
+namespace Domain.Interfaces
+{
+    public interface IOrderRepository
+    {
+        Task<Order> GetByIdAsync(OrderId id);
+    }
+}
+
+// Infrastructure layer implements it
+namespace Infrastructure.Persistence
+{
+    public class OrderRepository : IOrderRepository
+    {
+        // EF implementation - Domain doesn't know about this
+    }
+}
+```
+
+### Benefits
+
+- **Framework independence**: Swap ASP.NET for gRPC, EF for Dapper—business logic unchanged
+- **Testability**: Test business logic without spinning up database or web server
+- **Parallel development**: Teams work on UI, domain, and infrastructure independently
+- **Deferrable decisions**: Delay choosing database or framework until you have more information
+- **Maintainability**: Changes to infrastructure don't affect business logic
+
+### Related Patterns
+
+- [Clean Architecture](./patterns/clean-architecture.md) — detailed implementation
+- [Use Cases / Application Services](./patterns/use-cases.md) — application layer pattern
+- [Screaming Architecture](./patterns/screaming-architecture.md) — project structure that reveals intent
+- [Dependency Rule Enforcement](./patterns/dependency-rule-enforcement.md) — compile-time checks
+- [Repository Pattern](./patterns/repository-pattern.md) — data access abstraction
+- [Anti-Corruption Layer](./patterns/anti-corruption-layer.md) — protecting domain boundaries
+
+---
+
 ## Summary
 
-These eight philosophies reinforce each other:
+These nine philosophies reinforce each other:
 
 | Philosophy | Key Question |
 |------------|--------------|
@@ -302,5 +406,6 @@ These eight philosophies reinforce each other:
 | **Semantic Compression** | Is knowledge scattered or encapsulated? |
 | **Security by Construction** | Does violating security require sabotage, not a mistake? |
 | **Zero-Trust Intra-Code** | Does this component prove its claims, or just trust? |
+| **Clean Architecture** | Is business logic independent of frameworks and infrastructure? |
 
 When reviewing code or designing new features, ask these questions. The patterns in this catalog are tools to answer "yes" to each one.
