@@ -83,11 +83,23 @@ var search = new DirectorySearcher(filter);
 // This returns all users!
 ```
 
-**Prevention**: Use parameterized LDAP filters.
+**Prevention**: Use parameterized LDAP filters with proper escaping.
 
 ```csharp
 // ✅ SAFE: Escaped LDAP filter
-var escapedUsername = LdapEncoder.FilterEncode(username);
+// Use System.DirectoryServices.Protocols or Novell.Directory.Ldap
+public static string EscapeLdapFilterValue(string value)
+{
+    // Escape special LDAP characters
+    return value
+        .Replace("\\", "\\5c")
+        .Replace("*", "\\2a")
+        .Replace("(", "\\28")
+        .Replace(")", "\\29")
+        .Replace("\0", "\\00");
+}
+
+var escapedUsername = EscapeLdapFilterValue(username);
 var filter = $"(uid={escapedUsername})";
 var search = new DirectorySearcher(filter);
 ```
@@ -247,16 +259,33 @@ var obj = formatter.Deserialize(untrustedStream);  // Can execute arbitrary code
 **Prevention**: Never use `BinaryFormatter`, use safe serializers with type allowlists.
 
 ```csharp
-// ✅ SAFE: JSON with type restrictions
+// ✅ SAFE: JSON with known types only
 var options = new JsonSerializerOptions
 {
     TypeInfoResolver = new DefaultJsonTypeInfoResolver
     {
-        Modifiers = { AllowedTypesOnly }
+        Modifiers =
+        {
+            static typeInfo =>
+            {
+                // Only allow specific types
+                if (typeInfo.Type != typeof(OrderDto) && 
+                    typeInfo.Type != typeof(CustomerDto))
+                {
+                    throw new InvalidOperationException($"Type {typeInfo.Type} not allowed");
+                }
+            }
+        }
     }
 };
 
-var obj = JsonSerializer.Deserialize<KnownType>(json, options);
+var obj = JsonSerializer.Deserialize<OrderDto>(json, options);
+
+// Or use polymorphic serialization with explicit type discriminator
+var options2 = new JsonSerializerOptions
+{
+    Converters = { new KnownTypeConverter() }  // Custom converter with allowlist
+};
 ```
 
 **See**: [Deserialization Prevention](./deserialization-prevention.md)
@@ -347,14 +376,26 @@ public void Configure(IApplicationBuilder app)
 
 ```csharp
 // ❌ VULNERABLE: Allow all origins
+// Note: This combination throws InvalidOperationException at runtime
+// (AllowAnyOrigin + AllowCredentials is invalid) but shows the security intent
 services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder => builder
-            .AllowAnyOrigin()
+            .AllowAnyOrigin()      // Accepts requests from any domain
+            .AllowAnyMethod()      // All HTTP methods allowed
+            .AllowAnyHeader());    // All headers allowed - too permissive!
+});
+
+// Or this variation which works but is equally dangerous:
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder
+            .SetIsOriginAllowed(_ => true)  // Allows any origin
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowCredentials());  // This combination is dangerous!
+            .AllowCredentials());  // Dangerous: any site can make credentialed requests
 });
 ```
 
