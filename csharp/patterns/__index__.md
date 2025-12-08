@@ -190,6 +190,12 @@ Building URLs with string concatenation and magic strings—use typed link relat
 
 Processing multiple items with loops and mixed results in a single array—use typed batch operations with explicit success/failure tracking.
 
+## Security Patterns
+
+### [Common Security Attacks and Prevention Strategies](./security-attacks-overview.md)
+
+Comprehensive overview of OWASP Top 10 security risks and how to prevent them using type-safe patterns—covers injection attacks, XSS, CSRF, deserialization, XXE, path traversal, open redirects, cryptographic failures, and SSRF with defense-in-depth strategies.
+
 ## API Security Patterns
 
 ### [CSRF Protection (Anti-Forgery Tokens)](./csrf-protection.md)
