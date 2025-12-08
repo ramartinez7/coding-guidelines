@@ -133,15 +133,18 @@ public sealed record DraftOrder : OrderWorkflow
     private DraftOrder(
         OrderId id,
         CustomerId customerId,
-        List<OrderLine> items) 
-        : base(id, customerId, NonEmptyList<OrderLine>.Create(items[0], items.Skip(1).ToArray()))
+        NonEmptyList<OrderLine> items) 
+        : base(id, customerId, items)
     {
-        _items = items;
+        _items = items.All.ToList();
     }
     
-    public static DraftOrder Create(OrderId id, CustomerId customerId)
+    public static DraftOrder Create(OrderId id, CustomerId customerId, OrderLine firstItem)
     {
-        return new DraftOrder(id, customerId, new List<OrderLine>());
+        return new DraftOrder(
+            id, 
+            customerId, 
+            NonEmptyList<OrderLine>.Create(firstItem));
     }
     
     public void AddItem(OrderLine item) => _items.Add(item);

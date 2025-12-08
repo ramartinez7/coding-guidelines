@@ -342,9 +342,18 @@ public sealed class Order
         return Result<Order, string>.Success(new Order(id, customerId, lineList));
     }
     
-    public Money Total => _lines
-        .Select(line => line.LineTotal)
-        .Aggregate(Money.Zero, (sum, total) => sum + total);
+    public Money Total
+    {
+        get
+        {
+            if (_lines.Count == 0)
+                return new Money(0, Currency.USD);  // Default currency
+            
+            return _lines
+                .Select(line => line.LineTotal)
+                .Aggregate((sum, total) => sum + total);
+        }
+    }
 }
 
 // Invariant: Non-empty list

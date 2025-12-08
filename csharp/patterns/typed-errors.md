@@ -287,18 +287,19 @@ public class PaymentService
     {
         var result = await _paymentGateway.ChargeAsync(request);
         
-        return result.Match(
-            onSuccess: receipt => Result<PaymentReceipt, PaymentError>.Success(receipt),
-            onFailure: error => error switch
-            {
-                PaymentError.TransientError transient when attemptNumber < 3 =>
-                {
-                    await Task.Delay(transient.RetryAfterSeconds * 1000);
-                    return await ProcessPayment(request, attemptNumber + 1);
-                },
-                _ => Result<PaymentReceipt, PaymentError>.Failure(error)
-            }
-        );
+        if (result.IsSuccess)
+            return Result<PaymentReceipt, PaymentError>.Success(result.Value);
+        
+        var error = result.Error;
+        
+        // Retry on transient errors
+        if (error is PaymentError.TransientError transient && attemptNumber < 3)
+        {
+            await Task.Delay(transient.RetryAfterSeconds * 1000);
+            return await ProcessPayment(request, attemptNumber + 1);
+        }
+        
+        return Result<PaymentReceipt, PaymentError>.Failure(error);
     }
 }
 ```
