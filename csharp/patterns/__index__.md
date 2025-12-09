@@ -28,6 +28,18 @@ Five principles for creating maintainable, flexible object-oriented designs in C
 
 Inject dependencies through constructors rather than creating them internally or using service locators.
 
+### [Tell, Don't Ask](./tell-dont-ask.md)
+
+Tell objects what to do—don't ask for their state and make decisions for them.
+
+### [Law of Demeter (Principle of Least Knowledge)](./law-of-demeter.md)
+
+Objects should only talk to their immediate friends—don't navigate through chains of relationships.
+
+### [Extension Methods vs Inheritance](./extension-methods-vs-inheritance.md)
+
+Extend types without inheritance—extension methods add behavior without coupling, while inheritance creates tight relationships.
+
 ## Project Configuration
 
 ### [Nullable Reference Types](./nullable-reference-types.md)
@@ -63,6 +75,10 @@ Values that always travel together appear as separate parameters.
 ### [Primitive Collections](./primitive-collections.md)
 
 A special case of primitive obsession and data clumps applied to collections.
+
+### [First-Class Collections](./first-class-collections.md)
+
+Collections wrapped in dedicated types enforce invariants, provide domain-specific operations, and make intent explicit.
 
 ### [Flag Arguments](./flag-arguments.md)
 
@@ -138,7 +154,15 @@ Use static methods instead of constructors to create instances with clear, descr
 
 Builder patterns that allow `.Build()` before required fields are set—use interface segregation to enforce the sequence.
 
+### [Method Chaining (Fluent Interfaces)](./method-chaining.md)
+
+Design APIs where methods return `this` or the next builder step—enable readable, composable operation sequences.
+
 ## Behavioral Patterns
+
+### [Null Object Pattern](./null-object-pattern.md)
+
+Replace null references with objects that implement the expected interface but do nothing—eliminate null checks.
 
 ### [Specification Pattern (Logic as Types)](./specification-pattern.md)
 
@@ -306,6 +330,14 @@ Building SQL, HTML, or URLs from string concatenation risks injection attacks—
 
 Ignoring variance in generic types leads to runtime casts and lost type safety—use `in` and `out` keywords to express variance constraints at compile time.
 
+### [Record Equality (Value-Based Equality)](./record-equality.md)
+
+Use records for types where equality should be based on value, not reference identity—compiler-generated value semantics.
+
+### [Immutable Collections](./immutable-collections.md)
+
+Use `System.Collections.Immutable` for collections that truly cannot change—not just read-only views.
+
 ## Clean Architecture Patterns
 
 ### [Clean Architecture (Onion Architecture / Hexagonal Architecture)](./clean-architecture.md)
@@ -375,6 +407,16 @@ High-throughput code allocates excessively, triggering frequent GC pauses—use 
 ### [Lazy Initialization (Type-Safe Deferred Computation)](./lazy-initialization.md)
 
 Expensive initialization done eagerly when it might not be needed—use lazy initialization with type safety to defer computation until actually required.
+
+## Async and Concurrency Patterns
+
+### [Async Patterns (Task vs ValueTask)](./async-patterns.md)
+
+Choose the right async return type—`Task<T>` for most cases, `ValueTask<T>` for hot paths with synchronous completions.
+
+### [CancellationToken Handling](./cancellation-token-handling.md)
+
+Support cancellation in async operations—respect timeouts, user cancellations, and resource cleanup.
 
 ## Exercises
 
