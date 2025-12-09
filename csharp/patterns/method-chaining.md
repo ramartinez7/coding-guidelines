@@ -109,7 +109,11 @@ public sealed class EmailMessage
 
         public EmailMessage Build()
         {
-            return new EmailMessage(to!, subject!, body!, attachments);
+            if (to is null) throw new InvalidOperationException("To address is required");
+            if (subject is null) throw new InvalidOperationException("Subject is required");
+            if (body is null) throw new InvalidOperationException("Body is required");
+
+            return new EmailMessage(to, subject, body, attachments);
         }
     }
 }

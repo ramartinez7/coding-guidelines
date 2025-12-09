@@ -55,7 +55,7 @@ public sealed class BankAccount
         Status = status;
     }
 
-    public static Result<BankAccount, string> Create(Money initialBalance, Money overdraftLimit)
+    public static Result<BankAccount, string> CreateAccount(Money initialBalance, Money overdraftLimit)
     {
         if (initialBalance.Amount < 0)
             return Result<BankAccount, string>.Failure("Initial balance cannot be negative");

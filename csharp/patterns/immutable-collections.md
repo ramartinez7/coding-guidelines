@@ -210,10 +210,10 @@ var list3 = list1.Add(7);  // Shares first 5 nodes, adds different node
 
 | Type | Use When | Complexity |
 |------|----------|------------|
-| `ImmutableArray<T>` | Small, read-heavy, rarely modified | O(n) modifications |
-| `ImmutableList<T>` | General purpose, balanced operations | O(log n) access/modify |
-| `ImmutableDictionary<TK,TV>` | Key-value lookups, frequent changes | O(log n) operations |
-| `ImmutableHashSet<T>` | Unique items, membership testing | O(log n) operations |
+| `ImmutableArray<T>` | Small, read-heavy, rarely modified | O(1) indexed access, O(n) modifications |
+| `ImmutableList<T>` | General purpose, balanced operations | O(log n) indexed access, O(1) enumeration |
+| `ImmutableDictionary<TK,TV>` | Key-value lookups, frequent changes | O(log n) lookup/add/remove |
+| `ImmutableHashSet<T>` | Unique items, membership testing | O(log n) contains/add/remove |
 | `ImmutableQueue<T>` | FIFO operations | O(1) enqueue/dequeue |
 | `ImmutableStack<T>` | LIFO operations | O(1) push/pop |
 

@@ -275,7 +275,7 @@ public async Task<Result<Data, string>> GetDataWithFallbackAsync(
         var data = await GetFromPrimarySourceAsync(linkedCts.Token);
         return Result<Data, string>.Success(data);
     }
-    catch (OperationCanceledException) when (timeoutCts.IsCancellationRequested)
+    catch (OperationCanceledException ex) when (ex.CancellationToken == timeoutCts.Token)
     {
         // Timeout - try fallback
         var data = await GetFromCacheAsync(cancellationToken);
@@ -454,7 +454,7 @@ public async Task<Result<Data, string>> GetDataAsync(
     {
         return await FetchDataAsync(linkedCts.Token);
     }
-    catch (OperationCanceledException) when (timeoutCts.IsCancellationRequested)
+    catch (OperationCanceledException ex) when (ex.CancellationToken == timeoutCts.Token)
     {
         return Result<Data, string>.Failure("Operation timed out");
     }

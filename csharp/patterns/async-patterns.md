@@ -156,7 +156,7 @@ public async ValueTask<Result> ProcessAsync(IAsyncEnumerable<Data> stream)
 // ❌ BAD - awaiting ValueTask multiple times
 var valueTask = GetFromCacheAsync(key);
 var result1 = await valueTask;
-var result2 = await valueTask;  // UNDEFINED BEHAVIOR!
+var result2 = await valueTask;  // THROWS InvalidOperationException!
 
 // ✅ GOOD - await once
 var result = await GetFromCacheAsync(key);

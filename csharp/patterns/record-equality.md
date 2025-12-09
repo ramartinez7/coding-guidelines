@@ -51,7 +51,9 @@ Console.WriteLine(m1.Equals(m2));   // True - but easy to forget .Equals()
 ### ✅ After
 
 ```csharp
-public readonly record struct Money(decimal Amount, string Currency)
+public enum CurrencyCode { USD, EUR, GBP, JPY }
+
+public readonly record struct Money(decimal Amount, CurrencyCode Currency)
 {
     // That's it! Compiler generates:
     // - Value-based Equals()
@@ -64,8 +66,8 @@ public readonly record struct Money(decimal Amount, string Currency)
 }
 
 // Value equality automatically
-var m1 = new Money(10.00m, "USD");
-var m2 = new Money(10.00m, "USD");
+var m1 = new Money(10.00m, CurrencyCode.USD);
+var m2 = new Money(10.00m, CurrencyCode.USD);
 
 Console.WriteLine(m1 == m2);        // True - value equality!
 Console.WriteLine(m1.Equals(m2));   // True
