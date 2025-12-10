@@ -215,10 +215,10 @@ public Result<OrderConfirmation, ProcessOrderError> ProcessOrder(OrderId orderId
 
 Result<Order, ProcessOrderError> GetOrder(OrderId id)
 {
-    var order = _repository.GetById(id);
+    var orderOption = _repository.GetById(id);
     
-    return order.HasValue
-        ? Result<Order, ProcessOrderError>.Ok(order.Value)
+    return orderOption.HasValue
+        ? Result<Order, ProcessOrderError>.Ok(orderOption.Value)
         : Result<Order, ProcessOrderError>.Fail(
             new ProcessOrderError.OrderNotFound(id));
 }

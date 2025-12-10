@@ -149,8 +149,8 @@ sealed class ViewableDocumentRepository : IViewableDocumentRepository
         IDocumentRepository underlying,
         IReadOnlySet<DocumentId> allowedIds)
     {
-        this._underlying = underlying;
-        this._allowedIds = allowedIds;
+        _underlying = underlying;
+        _allowedIds = allowedIds;
     }
     
     public async Task<Option<Document>> GetById(DocumentId id)
@@ -181,8 +181,8 @@ sealed class EditableDocumentRepository : IEditableDocumentRepository
         IDocumentRepository underlying,
         IReadOnlySet<DocumentId> allowedIds)
     {
-        this._underlying = underlying;
-        this._allowedIds = allowedIds;
+        _underlying = underlying;
+        _allowedIds = allowedIds;
     }
     
     public async Task<Option<Document>> GetById(DocumentId id)

@@ -224,6 +224,10 @@ Comprehensive overview of OWASP Top 10 security risks and how to prevent them us
 
 Granting broad permissions and trusting code to self-limit—use types to enforce that code can only access the minimum privileges required through scoped repositories and narrow interfaces.
 
+### [Secure Defaults (Fail-Safe Design)](./secure-defaults.md)
+
+Types that allow insecure configurations through optional parameters—use secure defaults and make insecure choices explicit and difficult through scary naming and required justification.
+
 ## API Security Patterns
 
 ### [CSRF Protection (Anti-Forgery Tokens)](./csrf-protection.md)
@@ -297,6 +301,10 @@ Business rules validated at multiple points allow invalid objects to exist—enf
 ### [Result Monad (Railway-Oriented Programming)](./result-monad.md)
 
 Using exceptions for control flow or returning null on failure—use Result types to make success and failure explicit in the type system with composable error handling.
+
+### [Option Monad (Explicit Optionality)](./option-monad.md)
+
+Using null to represent "no value" or optional properties—use Option types to make optionality explicit, composable, and null-safe with forced handling of absence.
 
 ### [Typed Errors (Making Failure Cases Explicit)](./typed-errors.md)
 
