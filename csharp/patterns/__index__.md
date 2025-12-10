@@ -220,6 +220,10 @@ Processing multiple items with loops and mixed results in a single array—use t
 
 Comprehensive overview of OWASP Top 10 security risks and how to prevent them using type-safe patterns—covers injection attacks, XSS, CSRF, deserialization, XXE, path traversal, open redirects, cryptographic failures, and SSRF with defense-in-depth strategies.
 
+### [Principle of Least Privilege (Type-Safe Privilege Boundaries)](./principle-of-least-privilege.md)
+
+Granting broad permissions and trusting code to self-limit—use types to enforce that code can only access the minimum privileges required through scoped repositories and narrow interfaces.
+
 ## API Security Patterns
 
 ### [CSRF Protection (Anti-Forgery Tokens)](./csrf-protection.md)
@@ -274,6 +278,10 @@ Using weak algorithms, hardcoded keys, or manual crypto implementation—use mod
 
 ## Type-Driven Development Patterns
 
+### [Making Invalid States Unrepresentable](./making-invalid-states-unrepresentable.md)
+
+The golden rule of type-driven design—if an invalid state cannot be represented in the type system, it cannot exist at runtime. Design types where invalidity is impossible.
+
 ### [When to Create Domain Types (Domain Primitive Decision Guide)](./when-to-create-domain-types.md)
 
 Not every string, int, or decimal needs its own type—use this guide to decide when to create domain-specific types versus using primitives.
@@ -286,9 +294,25 @@ Validation that returns boolean forces callers to check and remember—use smart
 
 Business rules validated at multiple points allow invalid objects to exist—enforce invariants in constructors to make invalid states unrepresentable.
 
+### [Result Monad (Railway-Oriented Programming)](./result-monad.md)
+
+Using exceptions for control flow or returning null on failure—use Result types to make success and failure explicit in the type system with composable error handling.
+
 ### [Typed Errors (Making Failure Cases Explicit)](./typed-errors.md)
 
 String error messages lose type information and force string parsing—use discriminated unions to represent specific error cases with type safety.
+
+### [Discriminated Unions (Modeling Mutually Exclusive Alternatives)](./discriminated-unions.md)
+
+Using multiple nullable fields or flags to represent alternatives—use discriminated unions (sum types) to model "one of" relationships where only one variant can exist at a time.
+
+### [Exhaustive Pattern Matching (Compiler-Enforced Completeness)](./exhaustive-pattern-matching.md)
+
+Using if-else chains or switch with default that hide missing cases—use sealed type hierarchies and pattern matching to make incomplete handling a compile error.
+
+### [Newtype Pattern (Zero-Cost Wrappers)](./newtype-pattern.md)
+
+Using primitives directly when you need nominal typing—use the newtype pattern to create compile-time distinct types with zero runtime overhead.
 
 ### [Type-Safe Workflow Modeling (Business Processes as Types)](./type-safe-workflow-modeling.md)
 
