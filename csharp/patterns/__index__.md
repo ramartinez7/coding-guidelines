@@ -370,6 +370,46 @@ Use records for types where equality should be based on value, not reference ide
 
 Use `System.Collections.Immutable` for collections that truly cannot change—not just read-only views.
 
+### [Type-Safe State Transitions (Compiler-Enforced State Machines)](./type-safe-state-transitions.md)
+
+Runtime checks for valid state transitions allow bugs to reach production—use types to make invalid transitions uncompilable.
+
+### [Compile-Time Validation (Catching Errors Before Runtime)](./compile-time-validation.md)
+
+Runtime validation catches errors in production—move validation to compile time using types to catch bugs during development.
+
+### [Type-Level Constraints (Encoding Constraints in the Type System)](./type-level-constraints.md)
+
+Runtime validation catches errors late—encode constraints in types to catch violations at compile time.
+
+### [Type-Safe Functional Core (Functional Core, Imperative Shell)](./type-safe-functional-core.md)
+
+Business logic mixed with I/O and side effects makes testing hard and reasoning difficult—separate pure functional core from imperative shell using types to enforce the boundary.
+
+### [Type-Safe CQRS (Command Query Responsibility Segregation with Types)](./type-safe-cqrs.md)
+
+Mixing reads and writes in the same model creates complexity—separate commands and queries using types to enforce the distinction at compile time.
+
+### [Type-Safe Event Sourcing (Events as Source of Truth)](./type-safe-event-sourcing.md)
+
+Storing only current state loses history—use event sourcing with typed events to maintain complete audit trail and enable time travel.
+
+### [Type-Safe Messaging (Compile-Time Message Contract Safety)](./type-safe-messaging.md)
+
+Message contracts as strings or dynamic objects fail at runtime—use typed messages with serialization contracts to catch integration errors early.
+
+### [Type-Safe Configuration (Compile-Time Configuration Validation)](./type-safe-configuration.md)
+
+Configuration loaded as strings and dictionaries fails at runtime—use strongly-typed configuration with validation to catch errors at startup.
+
+### [Dependent Types Emulation (Types That Depend on Values)](./dependent-types-emulation.md)
+
+Types that can't express relationships between values lead to runtime checks—emulate dependent types to encode value relationships in the type system.
+
+### [Algebraic Effects Emulation (Effect Handlers in C#)](./algebraic-effects-emulation.md)
+
+Side effects hidden in methods make code unpredictable—make effects explicit in types to enable effect handling and interpretation.
+
 ## Clean Architecture Patterns
 
 ### [Clean Architecture (Onion Architecture / Hexagonal Architecture)](./clean-architecture.md)
@@ -421,6 +461,50 @@ External systems with incompatible models pollute your domain—use an anti-corr
 ### [Ubiquitous Language (Translating Business Terms to Types)](./ubiquitous-language.md)
 
 Technical jargon in code disconnected from business vocabulary—use types that mirror the language domain experts use.
+
+### [Value Object Composition (Building Complex Values from Simple Ones)](./value-object-composition.md)
+
+Primitive values scattered throughout code—compose value objects from other value objects to model rich domain concepts with guaranteed consistency.
+
+### [Aggregate Consistency Boundaries (Transactional Consistency Through Design)](./aggregate-consistency-boundaries.md)
+
+Entities modified in multiple transactions lead to inconsistent state—define aggregate boundaries to ensure atomic, consistent updates across related objects.
+
+### [Domain Model Isolation (Pure Domain Logic Without Infrastructure Concerns)](./domain-model-isolation.md)
+
+Domain logic mixed with database, HTTP, or framework code makes testing hard and couples business rules to infrastructure—isolate pure domain models from all external concerns.
+
+### [Rich Domain Models (Behavior-Rich Entities vs Anemic Models)](./rich-domain-models.md)
+
+Entities with only getters/setters and no behavior push business logic into services—create rich domain models that encapsulate both data and the operations that manipulate it.
+
+### [Entity Identity Strategies (Choosing the Right Identity Pattern)](./entity-identity-strategies.md)
+
+Using auto-increment IDs or random GUIDs without considering domain needs leads to confusion and performance issues—choose identity strategies that match business requirements and technical constraints.
+
+### [Lifecycle Management (Managing Entity State Transitions Over Time)](./lifecycle-management.md)
+
+Entities that can be modified at any time without lifecycle constraints lead to invalid states—model entity lifecycles explicitly to control valid transitions.
+
+### [Invariant Preservation (Maintaining Business Rules Throughout Entity Lifecycle)](./invariant-preservation.md)
+
+Entities that can violate invariants after construction create bugs—preserve invariants at all times through encapsulation and immutability.
+
+### [Domain Model Anemia Prevention (Avoiding Anemic Domain Models)](./domain-model-anemia-prevention.md)
+
+Domain models with only getters/setters and no behavior result in business logic scattered across service classes—add behavior to entities to prevent anemic domain models.
+
+### [Context Mapping (Strategic Domain Boundaries and Integration)](./context-mapping.md)
+
+Shared models between domains create coupling and confusion—use context maps to define bounded context relationships and translation strategies.
+
+### [Context Boundaries (Explicit Domain Context Separation)](./context-boundaries.md)
+
+Mixing concepts from different domains creates confusion—establish explicit context boundaries with translation layers.
+
+### [Saga Pattern (Long-Running Distributed Transactions)](./saga-pattern.md)
+
+Distributed operations fail midway leaving inconsistent state—use sagas to coordinate multi-step workflows with compensation logic encoded in types.
 
 ## Performance Patterns
 
