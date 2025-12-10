@@ -11,20 +11,19 @@ Messages passed between services as JSON with no type safety lead to runtime des
 ### ✅ Type-Safe Messages
 
 ```csharp
-// Message contracts as types
-[DataContract]
+// Message contracts as types (using System.Text.Json)
 public sealed record OrderCreatedMessage
 {
-    [DataMember(Name = "order_id", IsRequired = true)]
+    [JsonPropertyName("order_id")]
     public string OrderId { get; init; }
     
-    [DataMember(Name = "customer_id", IsRequired = true)]
+    [JsonPropertyName("customer_id")]
     public string CustomerId { get; init; }
     
-    [DataMember(Name = "total", IsRequired = true)]
+    [JsonPropertyName("total")]
     public decimal Total { get; init; }
     
-    [DataMember(Name = "created_at", IsRequired = true)]
+    [JsonPropertyName("created_at")]
     public string CreatedAt { get; init; }
     
     public static OrderCreatedMessage FromDomain(Order order) =>

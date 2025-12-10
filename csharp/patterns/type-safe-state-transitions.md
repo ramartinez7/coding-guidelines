@@ -87,7 +87,7 @@ public abstract record OrderState
     public sealed record Draft(
         OrderId Id,
         CustomerId CustomerId,
-        List<OrderLine> Lines) : OrderState
+        IReadOnlyList<OrderLine> Lines) : OrderState
     {
         public Result<Submitted, string> Submit()
         {
