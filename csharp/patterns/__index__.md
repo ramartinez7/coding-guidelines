@@ -410,6 +410,106 @@ Types that can't express relationships between values lead to runtime checks—e
 
 Side effects hidden in methods make code unpredictable—make effects explicit in types to enable effect handling and interpretation.
 
+### [Type-Safe Query Building (LINQ Safety)](./type-safe-query-building.md)
+
+Building LINQ queries with string column names risks runtime errors—use expression trees and typed query builders to make invalid queries uncompilable.
+
+### [Type-Safe Dependency Injection (Compile-Time DI Validation)](./type-safe-dependency-injection.md)
+
+Runtime service resolution failures from missing registrations or circular dependencies—use compile-time DI validation and strongly-typed service descriptors to catch configuration errors early.
+
+### [Type-Safe Serialization Contracts (Preventing Serialization Errors)](./type-safe-serialization-contracts.md)
+
+Serialization that fails at runtime from missing properties, type mismatches, or versioning issues—use typed serialization contracts to catch errors at compile time.
+
+### [Type-Safe Resource Lifetime (RAII in C#)](./type-safe-resource-lifetime.md)
+
+Resources cleaned up with `try-finally` or forgotten `Dispose()` calls leak—use the type system to enforce Resource Acquisition Is Initialization (RAII) and make resource leaks impossible.
+
+### [Type-Safe Pipeline Builder (Data Transformation Pipelines)](./type-safe-pipeline-builder.md)
+
+Chaining transformations with generic `Func<>` delegates loses type information and allows incompatible steps—use typed pipeline builders to make invalid pipelines uncompilable.
+
+### [Type-Safe Retry Policies (Exponential Backoff Encoding)](./type-safe-retry-policies.md)
+
+Retry logic with magic numbers and scattered configuration fails silently—encode retry policies in types to make retry behavior explicit and composable.
+
+### [Type-Safe Feature Toggles (Compile-Time Feature Flags)](./type-safe-feature-toggles.md)
+
+Boolean feature flags checked at runtime allow dead code and untested paths—use types to make features explicit and eliminate runtime checks.
+
+### [Type-Safe Multitenancy (Tenant Isolation)](./type-safe-multitenancy.md)
+
+Tenant IDs passed as primitives allow cross-tenant data leaks—use typed tenant contexts to enforce tenant isolation at compile time.
+
+### [Type-Safe Localization (i18n Keys)](./type-safe-localization.md)
+
+String-based localization keys fail silently when keys are misspelled or missing—use typed resource keys to catch localization errors at compile time.
+
+### [Type-Safe Caching Strategies (Cache Key Safety)](./type-safe-caching-strategies.md)
+
+String-based cache keys collide, expire silently, and can't be invalidated reliably—use typed cache keys to prevent cache pollution and ensure type-safe cache operations.
+
+### [Type-Safe Health Checks (Dependency Health Encoding)](./type-safe-health-checks.md)
+
+Health check endpoints with string-based status and no type safety—use typed health descriptors to make health check contracts explicit and composable.
+
+### [Type-Safe Circuit Breaker States](./type-safe-circuit-breaker-states.md)
+
+Circuit breaker state machines with enums and runtime checks allow invalid transitions—use sealed class hierarchies to make illegal state transitions uncompilable.
+
+### [Type-Safe Permission Composition (Combining Capabilities)](./type-safe-permission-composition.md)
+
+Permissions checked with boolean AND/OR operations allow privilege escalation—use typed permission composition to enforce least privilege through the type system.
+
+### [Type-Safe Audit Trail (Event Type Safety)](./type-safe-audit-trail.md)
+
+Audit logs with string messages and untyped data lose type information—use typed audit events to make audit trails queryable and type-safe.
+
+### [Type-Safe Protocol Versioning (API Protocol Evolution)](./type-safe-protocol-versioning.md)
+
+API protocol versions tracked with integers or strings allow version mismatches—use typed protocol versions to enforce compatibility at compile time.
+
+### [Type-Safe Null Object with Phantom Types](./type-safe-null-object-phantom.md)
+
+Null object pattern implemented with single class lacks type information—use phantom types to distinguish between null objects and real instances at compile time.
+
+### [Type-Safe Data Migration (Schema Versioning)](./type-safe-data-migration.md)
+
+Database migrations with version numbers and SQL scripts fail silently—use typed migrations to enforce schema evolution at compile time.
+
+### [Type-Safe Cross-Cutting Concerns (Logging and Metrics)](./type-safe-cross-cutting-concerns.md)
+
+Logging and metrics with string keys and untyped values lose type safety—use typed telemetry to make cross-cutting concerns compile-time safe.
+
+### [Type-Safe Saga Orchestration (Workflow Compensation)](./type-safe-saga-orchestration.md)
+
+Saga patterns with string-based step names and runtime compensation logic—use typed saga steps to enforce compensation at compile time.
+
+### [Type-Safe Aspect-Oriented Composition](./type-safe-aspect-oriented-composition.md)
+
+Cross-cutting concerns applied with reflection or dynamic proxies fail silently—use typed decorators and composition to make aspects compile-time safe.
+
+### [Type-Safe Rate Limiting Buckets](./type-safe-rate-limiting-buckets.md)
+
+Rate limiting with counters and timestamps scattered in code—use typed rate limit buckets to enforce rate limits through the type system.
+
+### [Type-Safe Background Job Scheduling](./type-safe-background-job-scheduling.md)
+
+Background jobs scheduled with string job names and untyped parameters fail silently—use typed job descriptors to make job scheduling compile-time safe.
+
+### [Type-Safe Graph Traversal](./type-safe-graph-traversal.md)
+
+Graph traversals with generic node types and unsafe casting—use typed graph structures to make traversal paths compile-time safe.
+
+### [Type-Safe Time-Based Access Control](./type-safe-time-based-access-control.md)
+
+Access control based on time windows checked at runtime—use typed temporal permissions to enforce time-based access at compile time.
+
+### [Type-Safe Command Pattern with Validation](./type-safe-command-pattern-validation.md)
+
+Commands executed without validation or with runtime type checking—use typed commands with compile-time validation to ensure command integrity.
+
 ## Clean Architecture Patterns
 
 ### [Clean Architecture (Onion Architecture / Hexagonal Architecture)](./clean-architecture.md)
