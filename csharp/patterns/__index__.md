@@ -528,6 +528,82 @@ Generic folder structures like "Controllers," "Services," "Models" hide what the
 
 Dependencies between layers can accidentally point the wrong direction—use compile-time checks to enforce that dependencies flow inward toward the domain.
 
+### [Port-Adapter Separation (Hexagonal Core)](./port-adapter-separation.md)
+
+Core business logic defines abstract ports (interfaces), while adapters implement concrete connections to external systems—enabling the domain to remain independent of technical details.
+
+### [Hexagonal Ports (Input/Output Boundaries)](./hexagonal-ports.md)
+
+Define clear boundaries between the application core and external concerns through ports (interfaces)—primary ports for use cases driven by external actors, secondary ports for infrastructure services needed by the core.
+
+### [Primary vs Secondary Adapters](./primary-secondary-adapters.md)
+
+Primary adapters drive the application (HTTP controllers, CLI, message consumers), while secondary adapters are driven by the application (database repositories, email services, external APIs)—understanding the direction of dependency flow is key to hexagonal architecture.
+
+### [Onion Layer Dependencies](./onion-layer-dependencies.md)
+
+Organize code in concentric layers where dependencies point inward toward the domain—outer layers depend on inner layers, never the reverse, ensuring the domain remains pure and infrastructure swappable.
+
+### [Application Service Layer Isolation](./application-service-isolation.md)
+
+Application services orchestrate domain logic without containing business rules themselves—they coordinate use cases, manage transactions, and translate between external concerns and the domain.
+
+### [Domain Service vs Application Service](./domain-service-vs-application-service.md)
+
+Domain services encapsulate business logic that doesn't belong to a single entity, while application services orchestrate use cases and coordinate between domain and infrastructure—understanding the difference prevents logic from landing in the wrong layer.
+
+### [Read Model vs Write Model (CQRS Application Layer)](./read-write-model-separation.md)
+
+Separate read operations (queries) from write operations (commands) to optimize each for their specific purpose—commands validate and modify state, queries return pre-computed views without business logic.
+
+### [Query Objects (Read-Side Abstraction)](./query-objects.md)
+
+Encapsulate database queries in dedicated query objects to separate data retrieval concerns from controllers and keep read-side logic organized and testable.
+
+### [Command Handlers (Write-Side Orchestration)](./command-handlers.md)
+
+Encapsulate write operations in dedicated command handlers that validate input, execute business logic, and coordinate domain operations—separating concerns and enabling decorator-based cross-cutting concerns.
+
+### [Domain Event Handlers](./domain-event-handlers.md)
+
+Domain events decouple side effects from core business logic—publish events when something significant happens in the domain, then handle them with separate event handlers to maintain clean boundaries.
+
+### [Cross-Cutting Concerns via Decorators](./cross-cutting-concerns-decorators.md)
+
+Apply cross-cutting concerns (logging, validation, authorization, transactions) through the Decorator pattern rather than scattering them throughout code—keeping business logic clean and concerns composable.
+
+### [Infrastructure Service Adapters](./infrastructure-service-adapters.md)
+
+Implement infrastructure concerns (email, file storage, external APIs) as adapters that implement domain or application interfaces—keeping infrastructure swappable and domain pure.
+
+### [Persistence Ignorance](./persistence-ignorance.md)
+
+Domain entities should have no knowledge of how they're persisted—no ORM attributes, no database concerns, keeping the domain pure and persistence swappable.
+
+### [Mapping Strategies (Domain-DTO Translation)](./mapping-strategies.md)
+
+Translate between domain models and DTOs using explicit mapping strategies—keeping domain pure while providing API-friendly representations.
+
+### [Application Layer Validation vs Domain Validation](./application-validation-vs-domain-validation.md)
+
+Application layer validates input and authorization, while domain layer enforces business invariants—separating concerns and preventing invalid domain objects from existing.
+
+### [Use Case Transactions and Unit of Work](./use-case-transactions-unit-of-work.md)
+
+Manage database transactions at the application layer using the Unit of Work pattern—ensuring atomic operations and keeping the domain transaction-agnostic.
+
+### [Layered Testing Strategy](./layered-testing-strategy.md)
+
+Test each architectural layer with appropriate strategies—unit tests for domain logic, integration tests for infrastructure, and end-to-end tests for critical paths—maximizing confidence while minimizing test maintenance.
+
+### [Infrastructure Layer Organization](./infrastructure-layer-organization.md)
+
+Organize infrastructure code by technology (Persistence, Email, ExternalApis) or by feature—keeping adapters cohesive and making it easy to locate and swap implementations.
+
+### [Composition Root (DI Container Configuration)](./composition-root.md)
+
+Configure dependency injection in a single location (composition root) at the application's entry point—wiring together interfaces and implementations while keeping the application core ignorant of DI frameworks.
+
 ## Domain-Driven Design Patterns
 
 ### [Entities vs Value Objects (Identity vs Equality)](./entities-vs-value-objects.md)
