@@ -95,3 +95,85 @@ Exhaustively test all variants—ensure pattern matching handles every case corr
 ### [Integration Test Patterns](./integration-test-patterns.md)
 
 Test components working together—balance speed, reliability, and realistic scenarios.
+
+## MSTest and FluentAssertions Patterns
+
+### [Testing Record Types](./testing-record-types.md)
+
+Verify record type behavior—equality, immutability, with-expressions, and deconstruction.
+
+### [Testing Equality and Comparison](./testing-equality-comparison.md)
+
+Verify equality operators, IEquatable<T>, and comparison logic—ensure consistent behavior across all equality methods.
+
+### [Testing Collection Assertions](./testing-collection-assertions.md)
+
+Verify collection contents, order, and properties using FluentAssertions' powerful collection testing capabilities.
+
+### [Testing String Assertions](./testing-string-assertions.md)
+
+Verify string content, format, and patterns using FluentAssertions' comprehensive string testing capabilities.
+
+### [Testing Numeric Assertions](./testing-numeric-assertions.md)
+
+Verify numeric values, ranges, precision, and arithmetic operations using FluentAssertions' numeric testing capabilities.
+
+### [Testing Boolean Logic](./testing-boolean-logic.md)
+
+Verify boolean values, conditions, and logical operations using clear and expressive assertions.
+
+### [Testing Reference Types and Null](./testing-reference-types-null.md)
+
+Verify reference type behavior, null handling, and object identity using FluentAssertions.
+
+### [Testing Nullable Value Types](./testing-nullable-value-types.md)
+
+Verify nullable value type behavior, HasValue/Value properties, and null handling with GetValueOrDefault.
+
+### [Testing LINQ Queries](./testing-linq-queries.md)
+
+Verify LINQ query results, transformations, filtering, and projections using FluentAssertions.
+
+### [Testing Event Raising](./testing-event-raising.md)
+
+Verify that events are raised correctly, with proper event arguments and timing using FluentAssertions event monitoring.
+
+### [Testing Timeouts and Delays](./testing-timeouts-delays.md)
+
+Verify asynchronous operations complete within expected time limits and test timeout behavior using FluentAssertions.
+
+### [Testing Concurrency](./testing-concurrency.md)
+
+Verify thread-safe operations, concurrent access patterns, and race conditions using MSTest and FluentAssertions.
+
+### [Testing Disposable Resources](./testing-disposable-resources.md)
+
+Verify proper disposal of IDisposable resources, using statements, and resource cleanup using FluentAssertions.
+
+### [Testing Factory Methods](./testing-factory-methods.md)
+
+Verify factory method behavior, object creation, validation, and error handling using MSTest and FluentAssertions.
+
+### [Testing Guard Clauses](./testing-guard-clauses.md)
+
+Verify input validation, precondition checks, and defensive programming using MSTest and FluentAssertions.
+
+### [Testing Result Patterns](./testing-result-patterns.md)
+
+Verify Result<T> monadic error handling, success/failure cases, and composition using FluentAssertions.
+
+### [Testing Option Patterns](./testing-option-patterns.md)
+
+Verify Option<T> monadic handling of optional values, Some/None cases, and mapping operations using FluentAssertions.
+
+### [Testing Refinement Types](./testing-refinement-types.md)
+
+Verify constrained types, validation rules, and type-level guarantees using MSTest and FluentAssertions.
+
+### [Testing Smart Constructors](./testing-smart-constructors.md)
+
+Verify validated object construction, factory methods that enforce invariants, and constructor guards using FluentAssertions.
+
+### [Testing Type-Safe Builders](./testing-type-safe-builders.md)
+
+Verify builder pattern implementation, fluent APIs, immutability, and build validation using MSTest and FluentAssertions.
