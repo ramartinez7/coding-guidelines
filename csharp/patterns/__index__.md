@@ -596,6 +596,10 @@ Manage database transactions at the application layer using the Unit of Work pat
 
 Test each architectural layer with appropriate strategies—unit tests for domain logic, integration tests for infrastructure, and end-to-end tests for critical paths—maximizing confidence while minimizing test maintenance.
 
+### [Application-Specific Business Rules](./application-specific-business-rules.md)
+
+Application layer can contain application-specific business rules (workflow orchestration, external system coordination) distinct from core domain rules—understanding this distinction prevents all logic from being pushed into the domain or scattered across controllers.
+
 ### [Infrastructure Layer Organization](./infrastructure-layer-organization.md)
 
 Organize infrastructure code by technology (Persistence, Email, ExternalApis) or by feature—keeping adapters cohesive and making it easy to locate and swap implementations.
