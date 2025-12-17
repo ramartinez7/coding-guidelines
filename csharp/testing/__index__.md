@@ -24,7 +24,15 @@ Tests should not depend on each other—run in any order with consistent results
 
 Use whitespace and comments to visually separate test phases—make the structure obvious at a glance.
 
+### [Test Categories and Traits](./testing-test-categories.md)
+
+Organize tests with categories and traits—run specific subsets of tests based on speed, environment, or purpose.
+
 ## Test Data Management
+
+### [Data-Driven Testing](./testing-data-driven-tests.md)
+
+Load test data from external sources—CSV files, JSON, databases—to run comprehensive test suites without hardcoding values.
 
 ### [Builder Pattern for Test Data](./test-data-builders.md)
 
@@ -62,6 +70,10 @@ Run the same test logic with different inputs—reduce duplication while coverin
 
 Capture and verify complex outputs—compare against approved baselines to detect unintended changes.
 
+### [Mutation Testing](./testing-mutation-testing.md)
+
+Using mutation testing to verify test quality—ensure your tests actually catch bugs by introducing deliberate defects.
+
 ## Testing Async and Exceptions
 
 ### [Testing Async Code](./testing-async-code.md)
@@ -97,6 +109,18 @@ Exhaustively test all variants—ensure pattern matching handles every case corr
 Test components working together—balance speed, reliability, and realistic scenarios.
 
 ## MSTest and FluentAssertions Patterns
+
+### [Custom Assertions](./testing-custom-assertions.md)
+
+Create domain-specific assertions for clearer, more maintainable tests—express business validations in the language of your domain.
+
+### [Assertion Scopes](./testing-assertion-scopes.md)
+
+Use FluentAssertions assertion scopes to report all failures at once—see all assertion failures in a single test run.
+
+### [Testing Object Graphs](./testing-object-graphs.md)
+
+Test complex object graphs and deep equality—verify nested objects, circular references, and structural equivalence.
 
 ### [Testing Record Types](./testing-record-types.md)
 
@@ -177,3 +201,63 @@ Verify validated object construction, factory methods that enforce invariants, a
 ### [Testing Type-Safe Builders](./testing-type-safe-builders.md)
 
 Verify builder pattern implementation, fluent APIs, immutability, and build validation using MSTest and FluentAssertions.
+
+## Modern C# Features Testing
+
+### [Testing Inheritance and Polymorphism](./testing-inheritance-hierarchies.md)
+
+Test inheritance hierarchies and polymorphic behavior—verify correct dispatch, override behavior, and substitutability.
+
+### [Testing Extension Methods](./testing-extension-methods.md)
+
+Test extension methods effectively—verify they enhance existing types without modifying them, handle edge cases, and compose correctly.
+
+### [Testing Static Methods](./testing-static-methods.md)
+
+Test static methods effectively—verify pure functions, manage static state, and handle singleton patterns.
+
+### [Testing Readonly Collections](./testing-readonly-collections.md)
+
+Test readonly and immutable collections—verify immutability guarantees, prevent modifications, and ensure thread safety.
+
+### [Testing Lazy Initialization](./testing-lazy-initialization.md)
+
+Test lazy-loaded values and Lazy<T>—verify deferred initialization, thread safety, and memoization.
+
+### [Testing Operator Overloading](./testing-operator-overloading.md)
+
+Test custom operators—verify arithmetic, comparison, equality, and conversion operators work correctly.
+
+### [Testing Indexers and Properties](./testing-indexers-properties.md)
+
+Test indexers and computed properties—verify getter/setter behavior, bounds checking, and calculations.
+
+### [Testing Enumerators and Yield](./testing-enumerators-yield.md)
+
+Test custom enumerators and yield return—verify iteration, lazy evaluation, and state management.
+
+### [Testing Pattern Matching](./testing-pattern-matching.md)
+
+Test pattern matching expressions—verify type patterns, property patterns, and exhaustiveness.
+
+### [Testing Switch Expressions](./testing-switch-expressions.md)
+
+Test switch expressions and exhaustiveness—verify all cases are handled and return correct values.
+
+### [Testing Record With-Expressions](./testing-record-with-expressions.md)
+
+Test record with-expressions and cloning—verify immutable updates and shallow vs deep copying.
+
+### [Testing Init-Only Setters](./testing-init-only-setters.md)
+
+Test init-only properties and immutability—verify properties can only be set during initialization.
+
+## Advanced Memory Management
+
+### [Testing Weak References](./testing-weak-references.md)
+
+Test memory management with weak references—verify objects can be collected when only weakly referenced.
+
+### [Testing Finalizers and Destructors](./testing-finalizers-destructors.md)
+
+Test finalizers and cleanup patterns—verify resources are released correctly.
