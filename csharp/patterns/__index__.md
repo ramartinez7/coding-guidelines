@@ -40,6 +40,100 @@ Objects should only talk to their immediate friends—don't navigate through cha
 
 Extend types without inheritance—extension methods add behavior without coupling, while inheritance creates tight relationships.
 
+## Best Development Practices
+
+### [Exception Handling Best Practices](./exception-handling-best-practices.md)
+
+Use exceptions for exceptional circumstances—catch specific exceptions, preserve stack traces, and avoid exception-driven control flow.
+
+### [Async/Await Anti-Patterns](./async-await-anti-patterns.md)
+
+Avoid common async pitfalls—deadlocks from blocking, missing ConfigureAwait, fire-and-forget, and async void methods.
+
+### [LINQ Query Optimization](./linq-query-optimization.md)
+
+Write efficient LINQ queries by avoiding N+1 problems, using proper eager loading, and materializing at the right time.
+
+### [Defensive Programming](./defensive-programming.md)
+
+Validate inputs, check for null, guard state transitions, and fail fast to prevent bugs from reaching production.
+
+### [String Handling Best Practices](./string-handling-best-practices.md)
+
+Use StringBuilder for loops, Span<T> for zero allocations, proper string comparison, and avoid injection vulnerabilities.
+
+### [Logging Best Practices](./logging-best-practices.md)
+
+Use structured logging, appropriate log levels, correlation IDs, and avoid logging sensitive data.
+
+### [Collection Initialization Patterns](./collection-initialization-patterns.md)
+
+Use modern collection expressions, appropriate collection types, and efficient initialization patterns.
+
+### [Code Organization Patterns](./code-organization-patterns.md)
+
+Organize by feature not layer, use vertical slice architecture, and maintain clear folder structures.
+
+### [Thread Safety Patterns](./thread-safety-patterns.md)
+
+Write thread-safe code with immutability, concurrent collections, proper synchronization, and atomic operations.
+
+### [Null Coalescing Best Practices](./null-coalescing-best-practices.md)
+
+Use null-coalescing (??) and null-conditional (?.) operators for clean null handling with nullable reference types.
+
+### [Resource Management Best Practices](./resource-management-best-practices.md)
+
+Properly manage resources with using statements, IDisposable, async disposal, and object pooling.
+
+### [Performance Profiling and Optimization](./performance-profiling-optimization.md)
+
+Measure first with profiling tools, identify real bottlenecks, and apply targeted optimizations based on data.
+
+### [Equality and Comparison Best Practices](./equality-comparison-best-practices.md)
+
+Implement equality correctly with records, IEquatable<T>, consistent GetHashCode, and proper comparison operators.
+
+### [Naming Conventions Best Practices](./naming-conventions-best-practices.md)
+
+Follow consistent C# naming conventions—PascalCase for public members, camelCase for private fields, descriptive names.
+
+### [Extension Methods Best Practices](./extension-methods-best-practices.md)
+
+Use extension methods for non-owned types, keep them focused, and avoid state or replacing instance methods.
+
+### [Pattern Matching Best Practices](./pattern-matching-best-practices.md)
+
+Use modern pattern matching with switch expressions, type patterns, property patterns, and exhaustive matching.
+
+### [Unit Testing Best Practices](./unit-testing-best-practices.md)
+
+Write clear, maintainable tests with AAA pattern, descriptive names, test builders, and focus on behavior not implementation.
+
+### [DI Container Best Practices](./di-container-best-practices.md)
+
+Use correct service lifetimes, avoid captive dependencies, explicit registration, and validate configuration at startup.
+
+### [Record Types Best Practices](./record-types-best-practices.md)
+
+Use records for value objects with automatic equality, immutability with init properties, and non-destructive updates.
+
+### [Enum Best Practices](./enum-best-practices.md)
+
+Use enums for fixed constants, explicit values, flags for combinations, but consider smart enums for behavior.
+
+### [Task-Based Asynchronous Pattern (TAP)](./task-based-asynchronous-pattern.md)
+
+Follow TAP conventions with async/await, proper cancellation support, and return Task or ValueTask.
+
+### [Serialization Best Practices](./serialization-best-practices.md)
+
+Use safe serializers like System.Text.Json, DTOs for contracts, versioning, and validate deserialized data.
+
+### [Const vs ReadOnly vs Static ReadOnly](./const-vs-readonly.md)
+
+Choose const for compile-time constants, static readonly for runtime constants, and readonly for instance immutability.
+
 ## Project Configuration
 
 ### [Nullable Reference Types](./nullable-reference-types.md)
